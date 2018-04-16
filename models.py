@@ -7,5 +7,5 @@ class User(MongoModel):
     process_requested = fields.ListField()
     process_duration = fields.ListField()
     upload_time = fields.ListField(field=fields.DateTimeField())
-    image_size = fields.ListField() # Tupel
+    image_size = fields.ListField() 
     pass
