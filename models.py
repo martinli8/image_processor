@@ -2,9 +2,10 @@ from pymodm import fields, MongoModel
 
 
 class User(MongoModel):
-    email = fields.email(primary_key = True)
-    picture = fields.LineStringField()
-    process_duration = fields.ListFields()
-    upload_time = fields.ListFields()
-    image_size = fields.ListFields() # Tupel
+    email = fields.EmailField(primary_key = True)
+    picture = fields.ListField()
+    process_requested = fields.ListField()
+    process_duration = fields.ListField()
+    upload_time = fields.ListField(field=fields.DateTimeField())
+    image_size = fields.ListField() # Tupel
     pass
