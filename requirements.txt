@@ -2,3 +2,4 @@
 pymodm
 flask
 pytest-pep8
+flask-cors
