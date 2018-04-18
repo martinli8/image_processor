@@ -2,7 +2,10 @@ from pymodm import connect
 import models
 import datetime
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
-
+from skimage import data, img_as_float, io, exposure
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy
 
 def create_user(email, picture, p_req, upload_time, size):
     """
@@ -78,8 +81,21 @@ def log_compression():
 
 
 def reverse_video():
+    img = data.moon()
+    img_c = numpy.copy(img)
+    print(type(img))
+    for x in numpy.nditer(img_c, op_flags=['readwrite']):
+        x[...] = 255-x
+    img_plot_1 = plt.imshow(img)
+    plt.show()
+    img_plot_2 = plt.imshow(img_c)
+    plt.show()
     pass
 
 
 def other():
     pass
+
+if __name__ == '__main__':
+    reverse_video()
+
