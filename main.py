@@ -1,6 +1,10 @@
 from pymodm import connect
 import models
 import datetime
+from skimage import data, img_as_float, io, exposure, filters
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -81,5 +85,13 @@ def reverse_video():
     pass
 
 
-def other():
+def edge_detection():
+    img = data.moon()
+    edges = filters.sobel(img)    
+    plt.imshow(edges)
+    plt.show()
+
     pass
+
+if __name__ == '__main__':
+    edge_detection()
