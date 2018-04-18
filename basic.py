@@ -25,10 +25,12 @@ def userCreation():
     upload_time = datetime.datetime.now()
 
     try:
-        add_user_data(user_email, user_picture, process_requested, upload_time, image_size)
+        add_user_data(user_email, user_picture, process_requested,
+                      upload_time, image_size)
         userCreationFlag = False
     except:
-        create_user(user_email, user_picture, process_requested, upload_time, image_size)
+        create_user(user_email, user_picture, process_requested,
+                    upload_time, image_size)
         userCreationFlag = True
 
     if process_requested is "histogram_eq":

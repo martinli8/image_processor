@@ -39,6 +39,7 @@ def write_duration_time(user_email, process_duration):
     user.save()
     return user.process_duration
 
+
 def add_user_data(email, picture, p_req, upload_time, size):
     """
     Appends user data to the existing user with email primary key
@@ -49,6 +50,7 @@ def add_user_data(email, picture, p_req, upload_time, size):
     u.upload_time.append(upload_time)
     u.image_size.append(size)
     u.save()
+
 
 def return_metadata(email):
     user = models.User.objects.raw({"_id": email}).first()
@@ -61,6 +63,7 @@ def return_metadata(email):
         "process_duration": user.process_duration
     }
     return data
+
 
 def histogram_eq():
     pass
