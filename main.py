@@ -1,6 +1,10 @@
 from pymodm import connect
 import models
 import datetime
+from skimage import data, img_as_float, io, exposure
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -46,6 +50,15 @@ def contrast_stretching():
 
 
 def log_compression():
+    img = data.moon()
+    img_c = img
+    max_val = numpy.amin(img)
+    for x in numpy.nditer(img_c, op_flags=['readwrite']):
+        x[...] = numpy.log10(1+x)
+    print(img)
+    print(img_c)
+    img_plot_2 = plt.imshow(img_c)
+    plt.show()
     pass
 
 
@@ -55,3 +68,6 @@ def reverse_video():
 
 def other():
     pass
+
+if __name__ == '__main__':
+    log_compression()
