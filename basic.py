@@ -10,6 +10,9 @@ CORS(app)
 
 @app.route("/api/post_image", methods=["POST"])
 def userCreation():
+
+    userCreationFlag = True
+
     try:
         r = request.get_json()
         user_email = r["user_email"]
@@ -23,10 +26,10 @@ def userCreation():
 
     try:
         add_user_data(user_email, user_picture, process_requested, upload_time, image_size)
-        return "User already exists, dadta is appended"
+        userCreationFlag = False
     except:
         create_user(user_email, user_picture, process_requested, upload_time, image_size)
-        return 'New User is created'
+        userCreationFlag = True
 
     if process_requested is "histogram_eq":
         process_duration = histogram_eq()[0]
@@ -49,8 +52,13 @@ def userCreation():
         pass
 
     process_duration = 3
+    write_duration_time(user_email, process_duration)
 
-    return "User Created"
+    if userCreationFlag is True:
+        return "User Created"
+    else:
+        return "User already exists, data appended"
+
 
 @app.route("/api/<user_email>", methods=["GET"])
 def getInfo(user_email):

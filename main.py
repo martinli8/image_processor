@@ -36,6 +36,7 @@ def write_duration_time(user_email, process_duration):
 
     user = models.User.objects.raw({"_id": user_email}).first()
     user.process_duration.append(process_duration)
+    user.save()
     return user.process_duration
 
 def add_user_data(email, picture, p_req, upload_time, size):
@@ -56,7 +57,8 @@ def return_metadata(email):
         "pictures": user.picture,
         "process_requested": user.process_requested,
         "upload_time": user.upload_time,
-        "image_size": user.image_size
+        "image_size": user.image_size,
+        "process_duration": user.process_duration
     }
     return data
 
