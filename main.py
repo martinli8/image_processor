@@ -2,7 +2,7 @@ from pymodm import connect
 import models
 import datetime
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
-from skimage import data, img_as_float, io, exposure
+from skimage import data, img_as_float, io, exposure, filters
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy
