@@ -6,6 +6,7 @@ from skimage import data, img_as_float, io, exposure
 
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
+
 def create_user(email, picture, p_req, p_dur, upload_time, size):
     """
     Creates a user with the specified paramters. If the user already exists
@@ -38,11 +39,12 @@ def histogram_eq(img):
     :param img: Is a uint8 array
     :return img_eq: Is a uint8 array after histogram equalization
     """
-    img_eq = exposure.equalize_hist(img)
+    img_eq = exposure.equalize_hist(img.astype('uint8'))
+    img_eq = 255*img_eq
     return img_eq.astype('uint8')
 
 
-def contrast_stretching(img):
+def contrast_stretch(img):
     """
     Function takes in an image and performs contrast contrast_stretching
 
