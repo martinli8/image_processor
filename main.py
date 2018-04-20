@@ -4,7 +4,7 @@ import datetime
 import numpy
 import base64
 from PIL import Image
-from skimage import filters
+from skimage import exposure, filters
 
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
@@ -83,8 +83,7 @@ def return_metadata(email):
     return data
 
 
-def histogram_eq():
-    def histogram_eq(img):
+def histogram_eq(img):
     """
     Function takes in an image and performs histogram equalization
 
@@ -103,7 +102,7 @@ def contrast_stretch(img):
     :param img: Is a uint8 array
     :return img_rescale: Is a uint8 array after contrast stretching
     """
-    p2, p98 = np.percentile(img, (2, 98))
+    p2, p98 = numpy.percentile(img, (2, 98))
     img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
     return img_rescale.astype('uint8')
 
@@ -158,6 +157,7 @@ def decodeImage(image_string):
     img = base64.b64decode(image_string)
     img_read = Image.open("temp.png")
     return img_read
+
 
 def encodeImage(img):
     """
