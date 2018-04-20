@@ -2,7 +2,7 @@ from pymodm import fields, MongoModel
 
 
 class User(MongoModel):
-    email = fields.EmailField(primary_key = True)
+    email = fields.EmailField(primary_key=True)
     picture = fields.ListField()
     process_requested = fields.ListField()
     upload_time = fields.ListField(field=fields.DateTimeField())

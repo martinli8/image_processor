@@ -1,10 +1,9 @@
 from pymodm import connect
 import models
 import datetime
-from skimage import data, img_as_float, io, exposure
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy
+import base64
+from PIL import Image
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -30,6 +29,7 @@ def create_user(email, picture, p_req, upload_time, size):
     u.image_size.append(size)
     u.save()
 
+
 def write_duration_time(user_email, process_duration):
     """
     Updates the user duration and saves it
@@ -39,7 +39,46 @@ def write_duration_time(user_email, process_duration):
 
     user = models.User.objects.raw({"_id": user_email}).first()
     user.process_duration.append(process_duration)
+    user.save()
     return user.process_duration
+
+
+def add_user_data(email, picture, p_req, upload_time, size):
+    """
+    Appends user data to the existing user with email primary key
+    :param email: Primary key for the user
+    :param picture: Base-64 representation of user uploaded picture
+    :param p_req: Process requested by the user (Ex. Hist. eq)
+    :param upload_time: Time it took to upload the file from the user end
+    :param size: Size of the uploaded image
+    """
+
+    u = models.User.objects.raw({"_id": email}).first()
+    u.picture.append(picture)
+    u.process_requested.append(p_req)
+    u.upload_time.append(upload_time)
+    u.image_size.append(size)
+    u.save()
+
+
+def return_metadata(email):
+    """
+    Returns user metadata regarding relevant uploads in a dict
+    :param email: Primary key for the user requesting metadata
+    :return data: A dict of the user metadata
+    """
+
+    user = models.User.objects.raw({"_id": email}).first()
+    data = {
+        "user_email": user.email,
+        "pictures": user.picture,
+        "process_requested": user.process_requested,
+        "upload_time": user.upload_time,
+        "image_size": user.image_size,
+        "process_duration": user.process_duration
+    }
+    return data
+
 
 def histogram_eq():
     pass
@@ -61,12 +100,41 @@ def log_compression(img):
     return image_log
 
 
-def reverse_video():
-    pass
+def reverse_video(img):
+    """
+    Takes in an image and reverses the colors in the image by
+    subtracting the pixel value from 225.
+    :param img: A uint8 2D array of the image that will undergo the opperation
+    :return image_reverse: A uint8 2D array of image with pixels inverted.
+    """
+    image_reverse = numpy.copy(img.astype('uint8'))
+    for x in numpy.nditer(image_reverse, op_flags=['readwrite']):
+        x[...] = 255 - x
+    return image_reverse.astype('uint8')
 
 
-def other():
-    pass
+def edge_detection(img):
+    """
+    Function detects the edges of a 2D array grayscale image using 
+    the sobel filter and returns an image containing the edges. 
+    :param img: Image, 2D grayscale array, on which edge detection 
+    will be performed
+    :return edges: Edges is a uint8 array that contians the edges 
+    found through sobel filtering
+    """
+    edges = filters.sobel(img)
+    return edges.astype('uint8')
 
-if __name__ == '__main__':
-    log_compression()
+
+def decodeImage(image_string):
+    """
+    Function will take in a base64 string and reconstructed into an image
+    :param image_string: 64bit- string representation of picture
+    :return img_read: reconstructed image as PIL Image object
+    """
+    fh = open("temp.png", "wb")
+    fh.write(base64.b64decode(image_string))
+    fh.close()
+    img = base64.b64decode(image_string)
+    img_read = Image.open("temp.png")
+    return img_read
