@@ -3,9 +3,6 @@ import models
 import datetime
 import numpy
 import base64
-from skimage import data, img_as_float, io, exposure, filters
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 from PIL import Image
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
@@ -91,8 +88,16 @@ def contrast_stretching():
     pass
 
 
-def log_compression():
-    pass
+def log_compression(img):
+    """
+    Function will take in an image and perform log compression.
+    :param img: Is a uint8 array image
+    :param image_log: Is a unit8 array image that was log compressed
+    """
+    image_log = numpy.copy(img.astype('uint8'))
+    for x in numpy.nditer(image_log, op_flags=['readwrite']):
+        x[...] = numpy.log10(1+x)
+    return image_log
 
 
 def reverse_video(img):
