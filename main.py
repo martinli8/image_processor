@@ -80,22 +80,18 @@ def log_compression():
     pass
 
 
-def reverse_video():
-    img = data.moon()
-    img_c = numpy.copy(img)
-    print(type(img))
-    for x in numpy.nditer(img_c, op_flags=['readwrite']):
-        x[...] = 255-x
-    img_plot_1 = plt.imshow(img)
-    plt.show()
-    img_plot_2 = plt.imshow(img_c)
-    plt.show()
-    pass
+def reverse_video(img):
+    """
+    Takes in an image and reverses the colors in the image by
+    subtracting the pixel value from 225.
+    :param img: A uint8 2D array of the image that will undergo the opperation
+    :return image_reverse: A uint8 2D array of image with pixels inverted.
+    """
+    image_reverse = numpy.copy(img.astype('uint8'))
+    for x in numpy.nditer(image_reverse, op_flags=['readwrite']):
+        x[...] = 255 - x
+    return image_reverse.astype('uint8')
 
 
 def other():
     pass
-
-if __name__ == '__main__':
-    reverse_video()
-
