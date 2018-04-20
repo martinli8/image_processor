@@ -48,14 +48,23 @@ image_string = 'R0lGODlhZABkAOYAAAAYHqX69D1yXfQjFKgPCbqE" \
 "CoAcXMJIQWayDGQhAgU4SwEYMRCABGC9JiBYkoH91qEIVcLACJDSRlI1s" \
 "QgBygIRRwvKWuMylLnfJy1768pfADKYwh0nMYhrzmMhMpjKXycxmOvOZiggEADs='
 
+
 def test_histogram_eq():
-    pass
+    img_rev_truth = io.imread('hist_eq.png')
+    img_rev_truth = img_rev_truth.astype('uint8')
+    img_original = io.imread('Small.png')
+    image_hist = histogram_eq(img_original)
+    assert np.array_equal(image_hist, img_rev_truth)
 
 
 def test_contrast_stretching():
-    pass
+    img_rev_truth = io.imread('contrast_stretch.png')
+    img_rev_truth = img_rev_truth.astype('uint8')
+    img_original = io.imread('Small.png')
+    image_stretch = contrast_stretch(img_original)
+    assert np.array_equal(image_stretch, img_rev_truth)
 
-
+    
 def test_log_compression():
     img_rev_truth = io.imread('log_image.png')
     img_rev_truth = img_rev_truth.astype('uint8')
@@ -84,6 +93,7 @@ def test_decodeImage():
     img_decode = decodeImage(image_string)
     assert original_img == img_decode
 
+    
 def test_encodeImage():
     original_img = io.imread('Small.png')
     output = encodeImage(original_img)

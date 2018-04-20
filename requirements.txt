@@ -1,9 +1,10 @@
-
 numpy
 pillow
 scikit-image
 matplotlib
 pymodm
 flask
-pytest-pep8
 flask-cors
+pytest
+pytest-pep8
+pytest-cov
