@@ -50,51 +50,51 @@ image_string = 'R0lGODlhZABkAOYAAAAYHqX69D1yXfQjFKgPCbqE" \
 
 
 def test_histogram_eq():
-    img_rev_truth = io.imread('hist_eq.png')
+    img_rev_truth = io.imread('images/hist_eq.png')
     img_rev_truth = img_rev_truth.astype('uint8')
-    img_original = io.imread('Small.png')
+    img_original = io.imread('images/Small.png')
     image_hist = histogram_eq(img_original)
     assert np.array_equal(image_hist, img_rev_truth)
 
 
 def test_contrast_stretching():
-    img_rev_truth = io.imread('contrast_stretch.png')
+    img_rev_truth = io.imread('images/contrast_stretch.png')
     img_rev_truth = img_rev_truth.astype('uint8')
-    img_original = io.imread('Small.png')
+    img_original = io.imread('images/Small.png')
     image_stretch = contrast_stretch(img_original)
     assert np.array_equal(image_stretch, img_rev_truth)
 
 
 def test_log_compression():
-    img_rev_truth = io.imread('log_image.png')
+    img_rev_truth = io.imread('images/log_image.png')
     img_rev_truth = img_rev_truth.astype('uint8')
-    img_original = io.imread('Small.png')
+    img_original = io.imread('images/Small.png')
     image_log = log_compression(img_original)
     assert np.array_equal(image_log, img_rev_truth)
 
 
 def test_reverse_video():
-    img_rev_truth = io.imread('reverse.png')
+    img_rev_truth = io.imread('images/reverse.png')
     img_rev_truth = img_rev_truth.astype('uint8')
-    img_original = io.imread('Small.png')
+    img_original = io.imread('images/Small.png')
     img_rev = reverse_video(img_original)
     assert np.array_equal(img_rev_truth, img_rev)
 
 
 def test_edge_detection():
-    img = color.rgb2gray(io.imread('edges.jpg'))
-    img_original = color.rgb2gray(io.imread('Small.png'))
+    img = color.rgb2gray(io.imread('images/edges.jpg'))
+    img_original = color.rgb2gray(io.imread('images/Small.png'))
     img_edge_compute = edge_detection(img_original)
     assert np.array_equal(img, img_edge_compute)
 
 
 def test_decodeImage():
-    original_img = Image.open('Small.png')
+    original_img = Image.open('images/Small.png')
     img_decode = decodeImage(image_string)
     assert original_img == img_decode
 
 
 def test_encodeImage():
-    original_img = io.imread('Small.png')
+    original_img = io.imread('images/Small.png')
     output = encodeImage(original_img)
     assert output == output
