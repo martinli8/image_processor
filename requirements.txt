@@ -1,4 +1,8 @@
 
+numpy
+pillow
+scikit-image
+matplotlib
 pymodm
 flask
 pytest-pep8

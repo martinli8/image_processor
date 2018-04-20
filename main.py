@@ -4,6 +4,7 @@ import datetime
 import numpy
 import base64
 from PIL import Image
+from skimage import filters
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -115,11 +116,11 @@ def reverse_video(img):
 
 def edge_detection(img):
     """
-    Function detects the edges of a 2D array grayscale image using 
-    the sobel filter and returns an image containing the edges. 
-    :param img: Image, 2D grayscale array, on which edge detection 
+    Function detects the edges of a 2D array grayscale image using
+    the sobel filter and returns an image containing the edges.
+    :param img: Image, 2D grayscale array, on which edge detection
     will be performed
-    :return edges: Edges is a uint8 array that contians the edges 
+    :return edges: Edges is a uint8 array that contians the edges
     found through sobel filtering
     """
     edges = filters.sobel(img)
@@ -138,3 +139,14 @@ def decodeImage(image_string):
     img = base64.b64decode(image_string)
     img_read = Image.open("temp.png")
     return img_read
+
+def encodeImage(img):
+    """
+    Function will take in a data-type returned from the data processing method
+    to a base 64 image to be returned to the front-end
+    :param img: Unit-8 array
+    :return :
+    """
+    print(type(img))
+    enconded_image_string = base64.b64encode(img)
+    return enconded_image_string
