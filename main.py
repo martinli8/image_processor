@@ -93,6 +93,11 @@ def other():
 
 
 def decodeImage(image_string):
+    """
+    Function will take in a base64 string and reconstructed into an image
+    :param image_string: 64bit- string representation of picture
+    :return img_read: reconstructed image as PIL Image object
+    """
     fh = open("temp.png", "wb")
     fh.write(base64.b64decode(image_string))
     fh.close()
