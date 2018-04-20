@@ -85,13 +85,12 @@ def reverse_video():
     pass
 
 
-def edge_detection():
-    img = data.moon()
-    edges = filters.sobel(img)    
-    plt.imshow(edges)
-    plt.show()
-
-    pass
-
-if __name__ == '__main__':
-    edge_detection()
+def edge_detection(img):
+    """
+    Function detects the edges of a 2D array grayscale image using the sobel filter
+    and returns an image containing the edges. 
+    :param img: Image, 2D grayscale array, on which edge detection will be performed
+    :return edges: Edges is a uint8 array that contians the edges found through sobel filtering
+    """
+    edges = filters.sobel(img)
+    return edges.astype('uint8')

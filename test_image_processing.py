@@ -1,6 +1,10 @@
 from main import *
 import pytest
 from PIL import Image
+import numpy as np
+from skimage import color
+from skimage import io
+import matplotlib.pyplot as plt
 
 
 def test_histogram_eq():
@@ -19,8 +23,12 @@ def test_reverse_video():
     pass
 
 
-def test_other():
-    pass
+def test_edge_detection():
+    img = color.rgb2gray(io.imread('edges.jpg'))
+    img_original = color.rgb2gray(io.imread('Small.png'))
+    img_edge_compute = edge_detection(img_original)
+    assert np.array_equal(img, img_edge_compute)
+
 
 
 def test_decodeImage():
