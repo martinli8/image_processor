@@ -7,8 +7,6 @@ from skimage import data, img_as_float, io, exposure, filters
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
-
-
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -85,8 +83,17 @@ def log_compression():
     pass
 
 
-def reverse_video():
-    pass
+def reverse_video(img):
+    """
+    Takes in an image and reverses the colors in the image by
+    subtracting the pixel value from 225.
+    :param img: A uint8 2D array of the image that will undergo the opperation
+    :return image_reverse: A uint8 2D array of image with pixels inverted.
+    """
+    image_reverse = numpy.copy(img.astype('uint8'))
+    for x in numpy.nditer(image_reverse, op_flags=['readwrite']):
+        x[...] = 255 - x
+    return image_reverse.astype('uint8')
 
 
 def edge_detection(img):

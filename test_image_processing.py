@@ -20,7 +20,11 @@ def test_log_compression():
 
 
 def test_reverse_video():
-    pass
+    img_rev_truth = io.imread('reverse.png')
+    img_rev_truth = img_rev_truth.astype('uint8')
+    img_original = io.imread('Small.png')
+    img_rev = reverse_video(img_original)
+    assert np.array_equal(img_rev_truth, img_rev)
 
 
 def test_edge_detection():
