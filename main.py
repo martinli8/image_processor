@@ -1,6 +1,13 @@
 from pymodm import connect
 import models
 import datetime
+import base64
+from skimage import data, img_as_float, io, exposure, filters
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from PIL import Image
+
+
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -83,3 +90,12 @@ def reverse_video():
 
 def other():
     pass
+
+
+def decodeImage(image_string):
+    fh = open("temp.png", "wb")
+    fh.write(base64.b64decode(image_string))
+    fh.close()
+    img = base64.b64decode(image_string)
+    img_read = Image.open("temp.png")
+    return img_read
