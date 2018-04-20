@@ -49,7 +49,13 @@ def write_duration_time(user_email, process_duration):
 def add_user_data(email, picture, p_req, upload_time, size):
     """
     Appends user data to the existing user with email primary key
+    :param email: Primary key for the user
+    :param picture: Base-64 representation of user uploaded picture
+    :param p_req: Process requested by the user (Ex. Hist. eq)
+    :param upload_time: Time it took to upload the file from the user end
+    :param size: Size of the uploaded image
     """
+
     u = models.User.objects.raw({"_id": email}).first()
     u.picture.append(picture)
     u.process_requested.append(p_req)
@@ -59,6 +65,12 @@ def add_user_data(email, picture, p_req, upload_time, size):
 
 
 def return_metadata(email):
+    """
+    Returns user metadata regarding relevant uploads in a dict
+    :param email: Primary key for the user requesting metadata
+    :return data: A dict of the user metadata
+    """
+
     user = models.User.objects.raw({"_id": email}).first()
     data = {
         "user_email": user.email,
