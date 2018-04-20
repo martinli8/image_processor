@@ -16,7 +16,11 @@ def test_contrast_stretching():
 
 
 def test_log_compression():
-    pass
+    img_rev_truth = io.imread('log_image.png')
+    img_rev_truth = img_rev_truth.astype('uint8')
+    img_original = io.imread('Small.png')
+    image_log  = log_compression(img_original)
+    assert np.array_equal(image_log, img_rev_truth)
 
 
 def test_reverse_video():

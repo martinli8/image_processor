@@ -49,17 +49,16 @@ def contrast_stretching():
     pass
 
 
-def log_compression():
-    img = data.moon()
-    img_c = img
-    max_val = numpy.amin(img)
-    for x in numpy.nditer(img_c, op_flags=['readwrite']):
+def log_compression(img):
+    """
+    Function will take in an image and perform log compression.
+    :param img: Is a uint8 array image
+    :param image_log: Is a unit8 array image that was log compressed
+    """
+    image_log = numpy.copy(img.astype('uint8'))
+    for x in numpy.nditer(image_log, op_flags=['readwrite']):
         x[...] = numpy.log10(1+x)
-    print(img)
-    print(img_c)
-    img_plot_2 = plt.imshow(img_c)
-    plt.show()
-    pass
+    return image_log
 
 
 def reverse_video():
