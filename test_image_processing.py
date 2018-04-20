@@ -64,22 +64,37 @@ def test_contrast_stretching():
     image_stretch = contrast_stretch(img_original)
     assert np.array_equal(image_stretch, img_rev_truth)
 
-
+    
 def test_log_compression():
-    pass
+    img_rev_truth = io.imread('log_image.png')
+    img_rev_truth = img_rev_truth.astype('uint8')
+    img_original = io.imread('Small.png')
+    image_log  = log_compression(img_original)
+    assert np.array_equal(image_log, img_rev_truth)
 
 
 def test_reverse_video():
-    pass
+    img_rev_truth = io.imread('reverse.png')
+    img_rev_truth = img_rev_truth.astype('uint8')
+    img_original = io.imread('Small.png')
+    img_rev = reverse_video(img_original)
+    assert np.array_equal(img_rev_truth, img_rev)
 
 
 def test_edge_detection():
-    pass
+    img = color.rgb2gray(io.imread('edges.jpg'))
+    img_original = color.rgb2gray(io.imread('Small.png'))
+    img_edge_compute = edge_detection(img_original)
+    assert np.array_equal(img, img_edge_compute)
 
 
 def test_decodeImage():
-    pass
+    original_img = Image.open('Small.png')
+    img_decode = decodeImage(image_string)
+    assert original_img == img_decode
 
-
+    
 def test_encodeImage():
-    pass
+    original_img = io.imread('Small.png')
+    output = encodeImage(original_img)
+    assert output == output

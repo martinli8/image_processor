@@ -1,10 +1,10 @@
+numpy
+pillow
+scikit-image
+matplotlib
 pymodm
 flask
 flask-cors
 pytest
 pytest-pep8
 pytest-cov
-numpy
-scipy
-matplotlib
-scikit-image
