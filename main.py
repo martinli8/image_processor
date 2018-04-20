@@ -62,6 +62,7 @@ def return_metadata(email):
     """
     Returns user metadata regarding relevant uploads in a dict
     :param email: Primary key for the user requesting metadata
+    :return data: A dict of the user metadata
     """
 
     user = models.User.objects.raw({"_id": email}).first()
