@@ -1,10 +1,14 @@
 from pymodm import connect
 import models
 import datetime
+import numpy
+import base64
 from skimage import data, img_as_float, io, exposure, filters
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import numpy
+from PIL import Image
+
+
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
 
 
@@ -87,10 +91,26 @@ def reverse_video():
 
 def edge_detection(img):
     """
-    Function detects the edges of a 2D array grayscale image using the sobel filter
-    and returns an image containing the edges. 
-    :param img: Image, 2D grayscale array, on which edge detection will be performed
-    :return edges: Edges is a uint8 array that contians the edges found through sobel filtering
+    Function detects the edges of a 2D array grayscale image using 
+    the sobel filter and returns an image containing the edges. 
+    :param img: Image, 2D grayscale array, on which edge detection 
+    will be performed
+    :return edges: Edges is a uint8 array that contians the edges 
+    found through sobel filtering
     """
     edges = filters.sobel(img)
     return edges.astype('uint8')
+
+
+def decodeImage(image_string):
+    """
+    Function will take in a base64 string and reconstructed into an image
+    :param image_string: 64bit- string representation of picture
+    :return img_read: reconstructed image as PIL Image object
+    """
+    fh = open("temp.png", "wb")
+    fh.write(base64.b64decode(image_string))
+    fh.close()
+    img = base64.b64decode(image_string)
+    img_read = Image.open("temp.png")
+    return img_read

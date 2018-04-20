@@ -30,7 +30,6 @@ def test_edge_detection():
     assert np.array_equal(img, img_edge_compute)
 
 
-
 def test_decodeImage():
     image_string = 'R0lGODlhZABkAOYAAAAYHqX69D1yXfQjFKgPCbqE" \
     "Sm0OEDCh6hs5P6vi52GlglwODNK5pv//2X83HUcHDpR9SuEgEmjC10k" \
