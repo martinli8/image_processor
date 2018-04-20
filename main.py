@@ -7,13 +7,8 @@ from skimage import data, img_as_float, io, exposure, filters
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
-
-
 connect("mongodb://vcm-3590.vm.duke.edu:27017/image_processor")
-from skimage import data, img_as_float, io, exposure, filters
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import numpy
+
 
 def create_user(email, picture, p_req, upload_time, size):
     """
