@@ -16,7 +16,6 @@ def test_create_user():
     assert user.email == testUser
     assert user.picture == [picture]
     assert user.process_requested == ["histogram equalization"]
-
     # assert user.process_duration == [13.398]
     assert user.upload_time == [datetime.datetime(2018, 3, 22, 13, 39,
                                                   4, 847000)]

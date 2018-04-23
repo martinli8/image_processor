@@ -33,28 +33,8 @@ def userCreation():
                     upload_time, image_size)
         userCreationFlag = True
 
-    if process_requested is "histogram_eq":
-        process_duration = histogram_eq()[0]
-        pass
+    encodedResult = processImage(user_email, process_requested,user_picture)
 
-    if process_requested is "contrast_stretching":
-        process_duration = contrast_stretching()[0]
-        pass
-
-    if process_requested is "log_compression":
-        process_duration = log_compression()[0]
-        pass
-
-    if process_requested is "reverse_video":
-        process_duration = reverse_video()[0]
-        pass
-
-    if process_requested is "other":
-        process_duration = other()[0]
-        pass
-
-    process_duration = 3
-    write_duration_time(user_email, process_duration)
 
     if userCreationFlag is True:
         return "User Created"
