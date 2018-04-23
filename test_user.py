@@ -12,11 +12,9 @@ imageSize = [255, 255]
 def test_create_user():
     create_user(testUser, picture, process_requested, timestamp, imageSize)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
-
     assert user.email == testUser
     assert user.picture == [picture]
     assert user.process_requested == ["histogram equalization"]
-    # assert user.process_duration == [13.398]
     assert user.upload_time == [datetime.datetime(2018, 3, 22, 13, 39,
                                                   4, 847000)]
     assert user.image_size == [[255, 255]]
@@ -24,11 +22,9 @@ def test_create_user():
 
 def test_write_duration_time():
     create_user(testUser, picture, process_requested, timestamp, imageSize)
-    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert write_duration_time(testUser, 6) == [6]
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.process_duration == [6]
-
 
 
 def test_add_user_data():
@@ -63,8 +59,7 @@ def test_return_metadata():
 
 def test_save_filename_base64():
     create_user(testUser, picture, process_requested, timestamp, imageSize)
-    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     save_filename_base64(testUser, "asdf.png", "zyxw")
-    # assert user.processed_image_name == ["asdf.png"]
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.processed_image_string == ["zyxw"]
+    assert user.processed_image_name == ["asdf.png"]
