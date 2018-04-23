@@ -215,16 +215,19 @@ def encodeImage(data_array):
     return encoded_image_string
 
 
-def save_processed_image(user_email, image_string):
+def save_image(user_email, image_string, status):
     """
     Saves the image as well as the file path to the user class
     :param user_email: Primary key that user is saved under
     :param image_string: Base-64 image string to save file to
     """
 
-    user = models.User.objects.raw({"_id": email}).first()
+    user = models.User.objects.raw({"_id": user_email}).first()
     picture_idx = len(user.process_requested)
-    imageName = user_email + "post" + str(picture_idx) + ".png"
+    if status is "PRE":
+        imageName = user_email + "pre" + str(picture_idx) + ".png"
+    if status is "POST":
+        imageName = user_email + "post" + str(picture_idx) + ".png"
     fh = open(imageName, "wb")
     fh.write(base64.b64decode(image_string))
     fh.close()
