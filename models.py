@@ -8,5 +8,6 @@ class User(MongoModel):
     upload_time = fields.ListField(field=fields.DateTimeField())
     image_size = fields.ListField()
     process_duration = fields.ListField(blank=True)
-    processed_image_fp = fields.ListField(blank=True)
+    processed_image_name = fields.ListField(blank=True)
+    processed_image_string = fields.ListField(blank=True)
     pass

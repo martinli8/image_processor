@@ -26,7 +26,7 @@ def create_user(email, picture, p_req, upload_time, size):
     :param image_size: Pixel x Pixel size of the image, stored in a tuple
     """
 
-    u = models.User(email, [], [], [], [], [])
+    u = models.User(email, [], [], [], [], [], [], [])
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
@@ -79,7 +79,7 @@ def return_metadata(email):
         "process_requested": user.process_requested,
         "upload_time": user.upload_time,
         "image_size": user.image_size,
-        "process_duration": user.process_duration
+        "process_duration": user.process_duration,
     }
     return data
 
@@ -122,7 +122,9 @@ def process_image(user_email, process_requested, bituser_picture):
     write_duration_time(user_email, process_duration)
 
     base64result = encodeImage(imageResult)
-    # save_processed_image(user_email, base64result)
+    fileName = save_image(user_email, base64result, "POST")
+
+    save_filename_base64(user_email, fileName, base64result)
 
     return base64result
 
@@ -208,7 +210,7 @@ def encodeImage(data_array):
     Function will take in a data-type returned from the data processing method
     to a base 64 image to be returned to the front-end
     :param img: Unit-8 array
-    :return :
+    :return encoded_image_string: An encoded image String of base 64
     """
     print(type(data_array))
     encoded_image_string = base64.b64encode(data_array)
@@ -217,9 +219,10 @@ def encodeImage(data_array):
 
 def save_image(user_email, image_string, status):
     """
-    Saves the image as well as the file path to the user class
+    Saves the image to disk
     :param user_email: Primary key that user is saved under
     :param image_string: Base-64 image string to save file to
+    :return imageName: name of the image that was saved to disk
     """
 
     user = models.User.objects.raw({"_id": user_email}).first()
@@ -232,3 +235,19 @@ def save_image(user_email, image_string, status):
     fh = open(imageName, "wb")
     fh.write(base64.b64decode(image_string))
     fh.close()
+
+    return imageName
+
+
+def save_filename_base64(user_email, fileName, base64result):
+    """
+    Saves the filename as well as the base64 string to the user class
+    :param user_email: Primary key that user is saved under
+    :param fileName: Name of the file that is saved
+    :param base64result: The base64 string of the user
+    """
+
+    user = models.User.objects.raw({"_id": user_email}).first()
+    user.processed_image_name.append(fileName)
+    user.processed_image_string.append(base64result)
+    user.save()

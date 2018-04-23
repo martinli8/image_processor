@@ -33,8 +33,7 @@ def userCreation():
                     upload_time, image_size)
         userCreationFlag = True
 
-    encodedResult = processImage(user_email, process_requested,user_picture)
-
+    encodedResult = processImage(user_email, process_requested, user_picture)
 
     if userCreationFlag is True:
         return "User Created"
@@ -46,3 +45,5 @@ def userCreation():
 def getInfo(user_email):
     userJson = return_metadata(user_email)
     return jsonify(userJson)
+#
+# @app.route("/api/latest/<user_email>", methods=

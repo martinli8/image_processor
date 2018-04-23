@@ -25,6 +25,7 @@ def test_create_user():
 def test_write_duration_time():
     create_user(testUser, picture, process_requested, timestamp, imageSize)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    assert user.process_duration == [6]
     assert write_duration_time(testUser, 6) == [6]
 
 
@@ -53,6 +54,14 @@ def test_return_metadata():
         "process_requested": [process_requested],
         "upload_time": [timestamp],
         "image_size": [imageSize],
-        "process_duration": []
+        "process_duration": [],
     }
     assert return_metadata(testUser) == assertDict
+
+
+def test_save_filename_base64():
+    create_user(testUser, picture, process_requested, timestamp, imageSize)
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    save_filename_base64(testUser, "asdf.png", "zyxw")
+    # assert user.processed_image_name == ["asdf.png"]
+    assert user.processed_image_string == ["zyxw"]

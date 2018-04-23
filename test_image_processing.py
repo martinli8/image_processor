@@ -106,13 +106,16 @@ def test_process_image():
     process_duration = 13.398
     timestamp = datetime.datetime(2018, 3, 22, 13, 39, 4, 847000)
     imageSize = [255, 255]
-    create_user(testUser, image_string, process_requested, timestamp, imageSize)
-    assert process_image(testUser,process_requested,image_string) == encodeImage(contrast_stretch(decodeImage(image_string)))
+    create_user(testUser, image_string, process_requested,
+                timestamp, imageSize)
+    assert process_image(testUser, process_requested,
+                         image_string) == encodeImage(
+        contrast_stretch(decodeImage(image_string)))
 
 
 def test_save_image():
     testUser = "testUserEmail@email.com"
-    save_image(testUser,image_string,"PRE")
+    save_image(testUser, image_string, "PRE")
     original_image = io.imread('images/Small.png')
     processed_image = io.imread('testUserEmail_pre_1.png')
     assert original_image.all() == processed_image.all()
