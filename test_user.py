@@ -25,8 +25,10 @@ def test_create_user():
 def test_write_duration_time():
     create_user(testUser, picture, process_requested, timestamp, imageSize)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
-    assert user.process_duration == [6]
     assert write_duration_time(testUser, 6) == [6]
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    assert user.process_duration == [6]
+
 
 
 def test_add_user_data():
@@ -64,4 +66,5 @@ def test_save_filename_base64():
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     save_filename_base64(testUser, "asdf.png", "zyxw")
     # assert user.processed_image_name == ["asdf.png"]
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.processed_image_string == ["zyxw"]
