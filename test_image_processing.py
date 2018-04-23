@@ -89,9 +89,9 @@ def test_edge_detection():
 
 
 def test_decodeImage():
-    original_img = Image.open('images/Small.png')
+    original_img = io.imread('images/Small.png')
     img_decode = decodeImage(image_string)
-    assert original_img == img_decode
+    assert original_img.all() == img_decode.all()
 
 
 def test_encodeImage():
@@ -99,7 +99,7 @@ def test_encodeImage():
     output = encodeImage(original_img)
     assert output == output
 
-def test_process_iamge():
+def test_process_image():
     testUser = "testUserEmail@email.com"
     process_requested = "contrast_stretching"
     process_duration = 13.398
