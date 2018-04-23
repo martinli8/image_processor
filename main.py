@@ -223,11 +223,12 @@ def save_image(user_email, image_string, status):
     """
 
     user = models.User.objects.raw({"_id": user_email}).first()
+    user_short = user_email.split('@')[0]
     picture_idx = len(user.process_requested)
     if status is "PRE":
-        imageName = user_email + "pre" + str(picture_idx) + ".png"
+        imageName = user_short + "_pre_" + str(picture_idx) + ".png"
     if status is "POST":
-        imageName = user_email + "post" + str(picture_idx) + ".png"
+        imageName = user_short + "_post_" + str(picture_idx) + ".png"
     fh = open(imageName, "wb")
     fh.write(base64.b64decode(image_string))
     fh.close()

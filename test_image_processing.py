@@ -99,6 +99,7 @@ def test_encodeImage():
     output = encodeImage(original_img)
     assert output == output
 
+
 def test_process_image():
     testUser = "testUserEmail@email.com"
     process_requested = "contrast_stretching"
@@ -106,12 +107,12 @@ def test_process_image():
     timestamp = datetime.datetime(2018, 3, 22, 13, 39, 4, 847000)
     imageSize = [255, 255]
     create_user(testUser, image_string, process_requested, timestamp, imageSize)
+    assert process_image(testUser,process_requested,image_string) == encodeImage(contrast_stretch(decodeImage(image_string)))
 
-    assert process_image(testUser,process_requested,image_string) == contrast_stretch(histogram_eq(decodeImage(image_string)))
 
 def test_save_image():
     testUser = "testUserEmail@email.com"
     save_image(testUser,image_string,"PRE")
     original_image = io.imread('images/Small.png')
-    processed_image = io.imread('testUserEmail@email.compre1.png')
+    processed_image = io.imread('testUserEmail_pre_1.png')
     assert original_image.all() == processed_image.all()
