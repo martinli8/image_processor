@@ -1,10 +1,14 @@
-To run this, run:
+To be able to run App.js, be sure to install by the following packages by typing:
 
 ```
 $ npm install material-ui@next
 ```
 and
 ```
-$ npm install react-dropzone
+$ npm install react-dropzone-component
 ```
-to get the necessary packages.
+and
+```
+$ npm install @ navjobs/upload
+```
+into the command line.
