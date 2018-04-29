@@ -107,7 +107,7 @@ def test_process_image():
     timestamp = datetime.datetime(2018, 3, 22, 13, 39, 4, 847000)
     imageSize = [255, 255]
     create_user(testUser, image_string, process_requested,
-                timestamp, imageSize)
+                timestamp)
     assert process_image(testUser, process_requested,
                          image_string) == encodeImage(
         contrast_stretch(decodeImage(image_string)))
@@ -119,3 +119,6 @@ def test_save_image():
     original_image = io.imread('images/Small.png')
     processed_image = io.imread('testUserEmail_pre_1.png')
     assert original_image.all() == processed_image.all()
+
+def test_image_size():
+    assert imageSize(image_string) == [100,100]

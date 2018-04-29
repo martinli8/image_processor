@@ -1,6 +1,10 @@
 import numpy
 import base64
-from skimage import exposure, filters, io
+from skimage import exposure, filters
+from skimage import io as skiIO
+import io
+import PIL
+from PIL import Image
 
 
 def histogram_eq(img):
@@ -75,7 +79,7 @@ def decodeImage(image_string):
     fh.write(base64.b64decode(image_string))
     fh.close()
     img = base64.b64decode(image_string)
-    img_read = io.imread("temp.png")
+    img_read = skiIO.imread("temp.png")
     return img_read
 
 
@@ -89,3 +93,15 @@ def encodeImage(data_array):
     print(type(data_array))
     encoded_image_string = base64.b64encode(data_array)
     return encoded_image_string
+
+def imageSize(image_string):
+    """
+    Function takes in base64 encoded and obtains the width and Height
+    :param image_string: 64bit - string represtnation of picture
+    :return dimensions: List of width and height
+    """
+    imgdata = base64.b64decode(image_string)
+    im = Image.open(io.BytesIO(imgdata))
+    width, height = im.size
+    dimensions = [width,height]
+    return dimensions
