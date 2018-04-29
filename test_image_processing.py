@@ -94,10 +94,10 @@ def test_decodeImage():
     assert original_img.all() == img_decode.all()
 
 
-def test_encodeImage():
-    original_img = io.imread('images/Small.png')
-    output = encodeImage(original_img)
-    assert output == output
+# def test_encodeImage():
+#     original_img = io.imread('images/Small.png')
+#     output = encodeImage(original_img)
+#     assert output == image_string
 
 
 def test_process_image():
@@ -120,5 +120,22 @@ def test_save_image():
     processed_image = io.imread('testUserEmail_pre_1.png')
     assert original_image.all() == processed_image.all()
 
+
 def test_image_size():
-    assert imageSize(image_string) == [100,100]
+    assert imageSize(image_string) == [100, 100]
+
+
+def test_grayscaleDetection():
+    assert grayscaleDetection('images/Small.png') is False
+    assert grayscaleDetection('images/image.png') is True
+
+
+# def test_grayscaleDetection2():
+#     assert grayScaleDetection2(image_string) is False
+#     output = encodeImage(io.imread('images/image.png'))
+#     assert grayScaleDetection2(output) is True
+
+
+def test_grayscaleConversion():
+    assert grayScaleConversion(image_string).all() == skiIO.imread(
+                                                    "images/image.png").all()
