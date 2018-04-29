@@ -35,7 +35,7 @@ def create_user(email, picture, p_req, upload_time):
     :param image_size: Pixel x Pixel size of the image, stored in a tuple
     """
 
-    u = models.User(email, [], [], [], [], [], [], [])
+    u = models.User(email, [], [], [], [], [], [], [], [])
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
@@ -54,17 +54,31 @@ def write_duration_time(user_email, process_duration):
     user.save()
     return user.process_duration
 
+
 def write_image_size(user_email, image_size):
     """
     Determines the uploaded image size and saves it
     :param user_email: The primary key used to open up the user
-    :param process_duration: List containing the
+    :param process_duration: List containing the image size
     """
 
     user = models.User.objects.raw({"_id": user_email}).first()
     user.image_size.append(image_size)
     user.save()
     return user.image_size
+
+
+def write_conversionFlag(user_email, conversionFlag):
+    """
+    Saves the conversion flag(boolean) as a string to the user
+    :param user_email: The primary key used to open up the user
+    :param conversionFlag: Whether or not a grayscale conversion was done
+    """
+
+    user = models.User.objects.raw({"_id": user_email}).first()
+    user.conversion_flag.append(str(conversionFlag))
+    user.save()
+    return user.conversion_flag
 
 
 def add_user_data(email, picture, p_req, upload_time):
@@ -100,7 +114,7 @@ def return_metadata(email):
         "upload_time": user.upload_time,
         "image_size": user.image_size,
         "process_duration": user.process_duration,
-        "conversionFlag": user.conversionFlag,
+        "conversion_flag": user.conversion_flag,
     }
     return data
 

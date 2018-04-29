@@ -25,12 +25,22 @@ def test_write_duration_time():
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.process_duration == [6]
 
+
 def test_write_imageSize():
     create_user(testUser, picture, process_requested, timestamp)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     write_image_size(testUser, imageSize)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
-    assert user.image_size == [[255,255]]
+    assert user.image_size == [[255, 255]]
+
+
+def test_write_conversionFlag():
+    create_user(testUser, picture, process_requested, timestamp)
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    write_conversionFlag(testUser, True)
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    assert user.conversion_flag == ["True"]
+
 
 def test_add_user_data():
     create_user(testUser, picture, process_requested, timestamp)
@@ -57,7 +67,7 @@ def test_return_metadata():
         "upload_time": [timestamp],
         "image_size": [],
         "process_duration": [],
-        "conversionFlag":[],
+        "conversion_flag": [],
     }
     assert return_metadata(testUser) == assertDict
 
