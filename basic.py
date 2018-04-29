@@ -18,7 +18,6 @@ def userCreation():
         user_email = r["user_email"]
         user_picture = r["picture64bit"]
         process_requested = r["process_requested"]
-        image_size = r["image_size"]
     except:
         return 'Input data error! Make sure you have correct data formats'
 
@@ -26,11 +25,11 @@ def userCreation():
 
     try:
         add_user_data(user_email, user_picture, process_requested,
-                      upload_time, image_size)
+                      upload_time)
         userCreationFlag = False
     except:
         create_user(user_email, user_picture, process_requested,
-                    upload_time, image_size)
+                    upload_time)
         userCreationFlag = True
 
     encodedResult = processImage(user_email, process_requested, user_picture)
