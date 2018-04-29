@@ -4,7 +4,7 @@ from skimage import exposure, filters
 from skimage import io as skiIO
 import io
 import PIL
-from PIL import Image
+from PIL import Image, ImageStat
 
 
 def histogram_eq(img):
@@ -105,3 +105,14 @@ def imageSize(image_string):
     width, height = im.size
     dimensions = [width,height]
     return dimensions
+
+def grayscaleDetection(image_string):
+    imgdata = base64.b64decode(image_string)
+    print(imgdata)
+    im = Image.open(io.BytesIO(imgdata))
+    stat = ImageStat.Stat(im)
+
+    if sum(stat.sum)/3 == stat.sum[0]:
+        return True
+    else:
+        return False

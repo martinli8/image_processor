@@ -57,6 +57,7 @@ def test_return_metadata():
         "upload_time": [timestamp],
         "image_size": [],
         "process_duration": [],
+        "conversionFlag":[],
     }
     assert return_metadata(testUser) == assertDict
 

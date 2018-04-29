@@ -122,3 +122,9 @@ def test_save_image():
 
 def test_image_size():
     assert imageSize(image_string) == [100,100]
+
+def test_grayscaleDetection():
+    assert grayscaleDetection(image_string) == False
+    test_grayscaleImage = io.imread('images/sampleGrayscale.png')
+    output = encodeImage(test_grayscaleImage)
+    assert grayscaleDetection(output) == True

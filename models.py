@@ -10,4 +10,5 @@ class User(MongoModel):
     process_duration = fields.ListField(blank=True)
     processed_image_name = fields.ListField(blank=True)
     processed_image_string = fields.ListField(blank=True)
+    conversionFlag = fields.ListField(blank=True)
     pass

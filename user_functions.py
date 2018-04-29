@@ -100,6 +100,7 @@ def return_metadata(email):
         "upload_time": user.upload_time,
         "image_size": user.image_size,
         "process_duration": user.process_duration,
+        "conversionFlag": user.conversionFlag,
     }
     return data
 
