@@ -1,6 +1,8 @@
 import models
 import datetime
 import base64
+from image_functions import imageSize
+import test_image_processing
 
 
 def save_filename_base64(user_email, fileName, base64result):
@@ -65,7 +67,7 @@ def write_image_size(user_email, image_size):
     return user.image_size
 
 
-def add_user_data(email, picture, p_req, upload_time, size):
+def add_user_data(email, picture, p_req, upload_time):
     """
     Appends user data to the existing user with email primary key
     :param email: Primary key for the user
@@ -79,7 +81,7 @@ def add_user_data(email, picture, p_req, upload_time, size):
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
-    u.image_size.append(size)
+    u.image_size.append(imageSize(test_image_processing.image_string))
     u.save()
 
 

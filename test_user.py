@@ -2,7 +2,7 @@ from main import *
 import pytest
 
 testUser = "testUserEmail@email.com"
-picture = "12kj"
+picture = test_image_processing.image_string
 process_requested = "histogram equalization"
 process_duration = 13.398
 timestamp = datetime.datetime(2018, 3, 22, 13, 39, 4, 847000)
@@ -37,16 +37,15 @@ def test_add_user_data():
     picture_append = "zyzz"
     process_requested_append = "reverse_video"
     timestamp_append = datetime.datetime(2018, 4, 20, 4, 20, 4, 847000)
-    imageSize_append = [512, 512]
     add_user_data(testUser, picture_append, process_requested_append,
-                  timestamp_append, imageSize_append)
+                  timestamp_append)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.email == testUser
     assert user.picture == [picture, picture_append]
     assert user.process_requested == ["histogram equalization",
                                       "reverse_video"]
     assert user.upload_time == [timestamp, timestamp_append]
-    assert user.image_size == [[512, 512]]
+    assert user.image_size == [[100, 100]]
 
 
 def test_return_metadata():
