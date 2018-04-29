@@ -106,13 +106,25 @@ def imageSize(image_string):
     dimensions = [width,height]
     return dimensions
 
-def grayscaleDetection(image_string):
-    imgdata = base64.b64decode(image_string)
-    print(imgdata)
-    im = Image.open(io.BytesIO(imgdata))
-    stat = ImageStat.Stat(im)
+def grayscaleDetection(img_path):
+    im = Image.open(img_path).convert('RGB')
+    w,h = im.size
+    for i in range(w):
+        for j in range(h):
+            r,g,b = im.getpixel((i,j))
+            if r != g != b: return False
+    return True
+    # obtained from https://stackoverflow.com/questions/23660929/how-to-
+    # check-whether-a-jpeg-image-is-color-or-gray-scale-using-only-python-stdli
 
-    if sum(stat.sum)/3 == stat.sum[0]:
-        return True
-    else:
-        return False
+def grayScaleDetection2(image_string):
+    fh = open("temp2.png", "wb")
+    fh.write(base64.b64decode(image_string))
+    fh.close()
+    im = Image.open("temp2.png").convert('RGB')
+    w,h = im.size
+    for i in range(w):
+        for j in range(h):
+            r,g,b = im.getpixel((i,j))
+            if r != g != b: return False
+    return True

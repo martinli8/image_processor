@@ -97,7 +97,7 @@ def test_decodeImage():
 def test_encodeImage():
     original_img = io.imread('images/Small.png')
     output = encodeImage(original_img)
-    assert output == output
+    assert output == image_string
 
 
 def test_process_image():
@@ -124,7 +124,10 @@ def test_image_size():
     assert imageSize(image_string) == [100,100]
 
 def test_grayscaleDetection():
-    assert grayscaleDetection(image_string) == False
-    test_grayscaleImage = io.imread('images/sampleGrayscale.png')
-    output = encodeImage(test_grayscaleImage)
-    assert grayscaleDetection(output) == True
+    assert grayscaleDetection('images/Small.png') == False
+    assert grayscaleDetection('images/image.png') == True
+
+def test_grayscaleDetection2():
+    assert grayScaleDetection2(image_string) == False
+    output = encodeImage(io.imread('images/image.png'))
+    assert grayScaleDetection2(output) == True
