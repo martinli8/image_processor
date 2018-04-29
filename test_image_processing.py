@@ -119,3 +119,6 @@ def test_save_image():
     original_image = io.imread('images/Small.png')
     processed_image = io.imread('testUserEmail_pre_1.png')
     assert original_image.all() == processed_image.all()
+
+def test_image_size():
+    assert imageSize(image_string) == [100,100]
