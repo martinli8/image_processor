@@ -17,7 +17,7 @@ def save_filename_base64(user_email, fileName, base64result):
     user.save()
 
 
-def create_user(email, picture, p_req, upload_time, size):
+def create_user(email, picture, p_req, upload_time):
     """
     Creates a user with the specified paramters. If the user already exists
     in the DB this WILL overwite the user. Also adds specified data regarding
@@ -37,7 +37,6 @@ def create_user(email, picture, p_req, upload_time, size):
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
-    u.image_size.append(size)
     u.save()
 
 

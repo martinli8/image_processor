@@ -107,7 +107,7 @@ def test_process_image():
     timestamp = datetime.datetime(2018, 3, 22, 13, 39, 4, 847000)
     imageSize = [255, 255]
     create_user(testUser, image_string, process_requested,
-                timestamp, imageSize)
+                timestamp)
     assert process_image(testUser, process_requested,
                          image_string) == encodeImage(
         contrast_stretch(decodeImage(image_string)))
