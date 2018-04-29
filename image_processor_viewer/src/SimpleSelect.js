@@ -5,6 +5,7 @@ import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import Select from 'material-ui/Select';
+import TextField from 'material-ui/TextField';
 
 const styles = theme => ({
   root: {
@@ -22,8 +23,13 @@ const styles = theme => ({
 
 class SimpleSelect extends React.Component {
   state = {
-    processor: '',
+    "processor": '',
+    "nameTextField": '',
   };
+
+  onNameTextFieldChange = (event) => {
+    this.setState({"nameTextField": event.target.value});
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -33,6 +39,11 @@ class SimpleSelect extends React.Component {
     const { classes } = this.props;
 
     return (
+      <div>
+        <TextField
+          value={this.state.nameTextField}
+          onChange={this.onNameTextFieldChange}/>
+
         <FormControl className={styles("").formControl}>
           <InputLabel htmlFor="image-processor">Image Processor</InputLabel>
           <Select
@@ -51,6 +62,7 @@ class SimpleSelect extends React.Component {
           </Select>
           <FormHelperText>Select a processing method</FormHelperText>
         </FormControl>
+        </div>
     );
   }
 }
