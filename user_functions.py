@@ -53,6 +53,18 @@ def write_duration_time(user_email, process_duration):
     user.save()
     return user.process_duration
 
+def write_image_size(user_email, image_size):
+    """
+    Determines the uploaded image size and saves it
+    :param user_email: The primary key used to open up the user
+    :param process_duration: List containing the
+    """
+
+    user = models.User.objects.raw({"_id": user_email}).first()
+    user.image_size.append(image_size)
+    user.save()
+    return user.image_size
+
 
 def add_user_data(email, picture, p_req, upload_time, size):
     """

@@ -26,6 +26,11 @@ def test_write_duration_time():
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.process_duration == [6]
 
+def test_write_imageSize():
+    create_user(testUser, picture, process_requested, timestamp, imageSize)
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    write_image_size(testUser, imageSize)
+    assert user.image_size == [[255,255]]
 
 def test_add_user_data():
     create_user(testUser, picture, process_requested, timestamp, imageSize)

@@ -18,6 +18,7 @@ def process_image(user_email, process_requested, bituser_picture):
     """
 
     decoded_image = decodeImage(bituser_picture)
+    write_image_size(user_email, imageSize(bituser_picture))
 
     if process_requested is "histogram_eq":
         timeNow = datetime.datetime.now()
