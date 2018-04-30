@@ -1,6 +1,8 @@
 import models
 import datetime
 import base64
+from image_functions import imageSize
+import test_image_processing
 
 
 def save_filename_base64(user_email, fileName, base64result):
@@ -17,7 +19,7 @@ def save_filename_base64(user_email, fileName, base64result):
     user.save()
 
 
-def create_user(email, picture, p_req, upload_time, size):
+def create_user(email, picture, p_req, upload_time):
     """
     Creates a user with the specified paramters. If the user already exists
     in the DB this WILL overwite the user. Also adds specified data regarding
@@ -33,11 +35,10 @@ def create_user(email, picture, p_req, upload_time, size):
     :param image_size: Pixel x Pixel size of the image, stored in a tuple
     """
 
-    u = models.User(email, [], [], [], [], [], [], [])
+    u = models.User(email, [], [], [], [], [], [], [], [])
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
-    u.image_size.append(size)
     u.save()
 
 
@@ -54,7 +55,33 @@ def write_duration_time(user_email, process_duration):
     return user.process_duration
 
 
-def add_user_data(email, picture, p_req, upload_time, size):
+def write_image_size(user_email, image_size):
+    """
+    Determines the uploaded image size and saves it
+    :param user_email: The primary key used to open up the user
+    :param process_duration: List containing the image size
+    """
+
+    user = models.User.objects.raw({"_id": user_email}).first()
+    user.image_size.append(image_size)
+    user.save()
+    return user.image_size
+
+
+def write_conversionFlag(user_email, conversionFlag):
+    """
+    Saves the conversion flag(boolean) as a string to the user
+    :param user_email: The primary key used to open up the user
+    :param conversionFlag: Whether or not a grayscale conversion was done
+    """
+
+    user = models.User.objects.raw({"_id": user_email}).first()
+    user.conversion_flag.append(str(conversionFlag))
+    user.save()
+    return user.conversion_flag
+
+
+def add_user_data(email, picture, p_req, upload_time):
     """
     Appends user data to the existing user with email primary key
     :param email: Primary key for the user
@@ -68,7 +95,7 @@ def add_user_data(email, picture, p_req, upload_time, size):
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
-    u.image_size.append(size)
+    u.image_size.append(imageSize(test_image_processing.image_string))
     u.save()
 
 
@@ -87,6 +114,7 @@ def return_metadata(email):
         "upload_time": user.upload_time,
         "image_size": user.image_size,
         "process_duration": user.process_duration,
+        "conversion_flag": user.conversion_flag,
     }
     return data
 
