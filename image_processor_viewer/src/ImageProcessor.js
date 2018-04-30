@@ -52,14 +52,14 @@ class SimpleSelect extends React.Component {
   };
 
   onButtonClick = (event) => {
-		console.log(this.state.nameTextField);
-    console.log(this.state.processor);
-    console.log(this.state.currentImageString)
+		// console.log(this.state.nameTextField);
+    // console.log(this.state.processor);
+    // console.log(this.state.currentImageString)
 	}
 
   postData = () => {
-    var db = "http://vcm-3590.vm.duke.edu:5000/api/post_image/"
-
+    // var db = "http://vcm-3590.vm.duke.edu:5000/api/post_image/"
+    var db = "http://127.0.0.1:5000/api/post_image/"
     const data = {
       user_email: this.state.nameTextField,
       picture64bit: this.state.currentImageString.split(',')[1],
@@ -80,9 +80,9 @@ class SimpleSelect extends React.Component {
 				<h2>Upload your image</h2>
 				<UploadField onFiles={this.onUpload}>
 					<div style={{
-							backgroundColor: 'gray',
+							backgroundColor: 'blue',
 							width:'200px',
-							height:'200px',
+							height:'50px',
 							textAlign: 'center'}}>
 						Upload here
 					</div>
@@ -111,14 +111,11 @@ class SimpleSelect extends React.Component {
           </Select>
           <FormHelperText>Select a processing method</FormHelperText>
         </FormControl>
-
         <Button variant="raised" onClick={this.postData}>
 					Upload
 				</Button>
         {this.state.message}
         </div>
-
-
     );
   }
 }
