@@ -25,6 +25,7 @@ def process_image(user_email, process_requested, bituser_picture):
         if grayScaleDetection2(bituser_picture) is True:
             img = grayScaleConversion(bituser_picture)
             conversionFlag = True
+            decoded_image = img
         timeNow = datetime.datetime.now()
         imageResult = histogram_eq(decoded_image)
 
@@ -44,6 +45,7 @@ def process_image(user_email, process_requested, bituser_picture):
         if grayScaleDetection2(bituser_picture) is True:
             img = grayScaleConversion(bituser_picture)
             conversionFlag = True
+            decoded_image = img
         timeNow = datetime.datetime.now()
         imageResult = edge_detection(decoded_image)
 
