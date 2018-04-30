@@ -22,7 +22,7 @@ def process_image(user_email, process_requested, bituser_picture):
     conversionFlag = False
 
     if process_requested == "histogram_eq":
-        if grayScaleDetection2(bituser_picture) is True:
+        if grayScaleDetection2(bituser_picture) is False:
             img = grayScaleConversion(bituser_picture)
             conversionFlag = True
             decoded_image = img
@@ -42,7 +42,7 @@ def process_image(user_email, process_requested, bituser_picture):
         imageResult = reverse_video(decoded_image)
 
     if process_requested == "edge_detection":
-        if grayScaleDetection2(bituser_picture) is True:
+        if grayScaleDetection2(bituser_picture) is False:
             img = grayScaleConversion(bituser_picture)
             conversionFlag = True
             decoded_image = img
