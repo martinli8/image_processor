@@ -21,28 +21,28 @@ def process_image(user_email, process_requested, bituser_picture):
     write_image_size(user_email, imageSize(bituser_picture))
     conversionFlag = False
 
-    if process_requested is "histogram_eq":
-        if grayscaleDetection2(bituser_picture) is True:
-            img = grayscaleConversion(bituser_picture)
+    if process_requested == "histogram_eq":
+        if grayScaleDetection2(bituser_picture) is True:
+            img = grayScaleConversion(bituser_picture)
             conversionFlag = True
         timeNow = datetime.datetime.now()
         imageResult = histogram_eq(decoded_image)
 
-    if process_requested is "contrast_stretching":
+    if process_requested == "contrast_stretching":
         timeNow = datetime.datetime.now()
         imageResult = contrast_stretch(decoded_image)
 
-    if process_requested is "log_compression":
+    if process_requested == "log_compression":
         timeNow = datetime.datetime.now()
         imageResult = log_compression(decoded_image)
 
-    if process_requested is "reverse_video":
+    if process_requested == "reverse_video":
         timeNow = datetime.datetime.now()
         imageResult = reverse_video(decoded_image)
 
-    if process_requested is "edge_detection":
-        if grayscaleDetection2(bituser_picture) is True:
-            img = grayscaleConversion(bituser_picture)
+    if process_requested == "edge_detection":
+        if grayScaleDetection2(bituser_picture) is True:
+            img = grayScaleConversion(bituser_picture)
             conversionFlag = True
         timeNow = datetime.datetime.now()
         imageResult = edge_detection(decoded_image)

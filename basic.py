@@ -12,7 +12,7 @@ CORS(app)
 def userCreation():
 
     userCreationFlag = True
-    print("HERE0")
+
     try:
         r = request.get_json()
         user_email = r["user_email"]
@@ -22,10 +22,8 @@ def userCreation():
         return 'Input data error! Make sure you have correct data formats'
 
     upload_time = datetime.datetime.now()
-    print("HERE1")
 
     try:
-        print(process_requested)
         add_user_data(user_email, user_picture, process_requested,
                       upload_time)
         userCreationFlag = False
@@ -33,9 +31,7 @@ def userCreation():
         create_user(user_email, user_picture, process_requested,
                     upload_time)
         userCreationFlag = True
-    print("HERE2")
-    print(process_requested)
-    print("HERE3")
+
     encodedResult = process_image(user_email, process_requested, user_picture)
 
     if userCreationFlag is True:
