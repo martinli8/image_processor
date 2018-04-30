@@ -32,7 +32,7 @@ def userCreation():
                     upload_time)
         userCreationFlag = True
 
-    encodedResult = processImage(user_email, process_requested, user_picture)
+    encodedResult = process_image(user_email, process_requested, user_picture)
 
     if userCreationFlag is True:
         return "User Created"
