@@ -90,8 +90,10 @@ def encodeImage(data_array):
     :param img: Unit-8 array
     :return encoded_image_string: An encoded image String of base 64
     """
-    print(type(data_array))
-    encoded_image_string = base64.b64encode(data_array)
+    pil_img = Image.fromarray(data_array)
+    buff = io.BytesIO()
+    pil_img.save(buff, format="PNG")
+    encoded_image_string = base64.b64encode(buff.getvalue()).decode("utf-8")
     return encoded_image_string
 
 
