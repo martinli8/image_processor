@@ -42,7 +42,7 @@ def test_reverse_video():
 
 
 def test_edge_detection():
-    img = color.rgb2gray(io.imread('images/edges.jpg'))
+    img = color.rgb2gray(io.imread('images/edges.png'))
     img_original = color.rgb2gray(io.imread('images/Small.png'))
     img_edge_compute = edge_detection(img_original)
     assert np.array_equal(img, img_edge_compute)

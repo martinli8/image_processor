@@ -1,6 +1,6 @@
 import numpy
 import base64
-from skimage import exposure, filters
+from skimage import exposure, filters, feature, color
 from skimage import io as skiIO
 import io
 import PIL
@@ -65,7 +65,8 @@ def edge_detection(img):
     :return edges: Edges is a uint8 array that contians the edges
     found through sobel filtering
     """
-    edges = filters.sobel(img)
+    edges = feature.canny(color.rgb2grey(img))
+    edges = edges*255
     return edges.astype('uint8')
 
 
