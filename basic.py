@@ -8,8 +8,9 @@ app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+
 @app.route("/api/post_image", methods=["POST"])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def userCreation():
 
     userCreationFlag = True
@@ -42,7 +43,7 @@ def userCreation():
 
 
 @app.route("/api/<user_email>", methods=["GET"])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def getInfo(user_email):
     userJson = return_metadata(user_email)
     return jsonify(userJson)
