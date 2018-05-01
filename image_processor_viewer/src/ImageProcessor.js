@@ -10,7 +10,10 @@ import axios from 'axios';
 import Button from 'material-ui/Button';
 import DownloadLink from "react-download-link";
 import Gallery from 'react-photo-gallery';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
 
+let id = 0;
 
 const styles = theme => ({
   root: {
@@ -25,6 +28,9 @@ const styles = theme => ({
   selectEmpty: {
     // marginTop: theme.spacing.unit * 2,
   },
+  table: {
+    minWidth: 700,
+  },
 });
 
 class SimpleSelect extends React.Component {
@@ -36,8 +42,27 @@ class SimpleSelect extends React.Component {
     "processor": '',
     "nameTextField": '',
     "message": 'Nothing done yet!',
-    "photoset": []
+    "photoset": [],
+    "id": 0,
+    "Data": []
   };
+
+  createData(user_email, process_req, image_size, process_dur, conv_flag) {
+    id += 1;
+    return {user_email, process_req, image_size, process_dur, conv_flag};
+  }
+
+  assembleData(user_email, process_req, image_size, process_dur, conv_flag)  {
+    // console.log('assembleData')
+    this.setState({Data: [], id: 0})
+    for(var i = 0; i<process_dur.length; i++){
+      var arr = this.state.Data
+      arr.push(this.createData(user_email, process_req[i], image_size[i], process_dur[i], conv_flag[i]))
+    }
+    // console.log(arr)
+    this.setState({Data: arr})
+    console.log(this.state.Data)
+  }
 
   onUpload = (files) => {
     const reader = new FileReader()
@@ -87,22 +112,21 @@ class SimpleSelect extends React.Component {
     }
 
     axios.get(db).then( (response) => {
-        // console.log(response)
+        console.log(response)
         this.setState({"imagelist": response.data.processed_image_string});
+        this.assembleData(response.data.user_email, response.data.process_requested, response.data.image_size, response.data.process_duration, response.data.conversion_flag)
     }).then(this.updateProcess)
   }
 
   updateProcess = () => {
     this.setState({"processedImageString": "data:iamge/jpeg;base64,"+this.state.imagelist[this.state.imagelist.length-1]});
-    // var temp_arr = [];
-    // {this.state.imagelist.map(function(d, temp_arr){
-    //   var val = {src: "data:iamge/jpeg;base64,"+d, width: 4, height: 3}
-    //   temp_arr.push(val)
-    // })}
-    // this.setState({"photoset": temp_arr})
-    // console.log(this.state.photoset)
-    // console.log(this.state.processedImageString)
-    // console.log(this.state.currentImageString)
+    this.setState({photoset: []})
+    for(var i = 0; i<this.state.imagelist.length; i++){
+      var arr = this.state.photoset
+      arr.push({src: "data:iamge/jpeg;base64,"+this.state.imagelist[i], width: 4, height:3})
+    }
+    console.log(arr)
+    this.setState({photoset: arr})
   }
 
 
@@ -169,7 +193,35 @@ class SimpleSelect extends React.Component {
         </Button>
         </div>
         <div>
-        // <Gallery photos={this.state.photoset} />
+        <Gallery photos={this.state.photoset} />
+        </div>
+        <div>
+        <Paper>
+          <Table style = {styles.appTable}>
+            <TableHead>
+              <TableRow>
+                <TableCell>User Email</TableCell>
+                <TableCell>Process Request</TableCell>
+                <TableCell>Image Size</TableCell>
+                <TableCell>Process Duration</TableCell>
+                <TableCell>Grayscale Conversion</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.state.Data.map(n => {
+                return (
+              <TableRow key={n.id}>
+                <TableCell>{n.user_email}</TableCell>
+                <TableCell numeric>{n.process_req}</TableCell>
+                <TableCell numeric>{n.image_size}</TableCell>
+                <TableCell numeric>{n.process_dur}</TableCell>
+                <TableCell numeric>{n.conv_flag}</TableCell>
+              </TableRow>
+                );
+                })}
+            </TableBody>
+          </Table>
+          </Paper>
         </div>
         </div>
     );
