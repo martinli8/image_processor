@@ -1,14 +1,16 @@
 import datetime
 import models
 from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from main import *
 
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/api/post_image", methods=["POST"])
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def userCreation():
 
     userCreationFlag = True
@@ -41,8 +43,7 @@ def userCreation():
 
 
 @app.route("/api/<user_email>", methods=["GET"])
+@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def getInfo(user_email):
     userJson = return_metadata(user_email)
     return jsonify(userJson)
-#
-# @app.route("/api/latest/<user_email>", methods=
