@@ -95,7 +95,6 @@ def add_user_data(email, picture, p_req, upload_time):
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
-    u.image_size.append(imageSize(test_image_processing.image_string))
     u.save()
 
 
