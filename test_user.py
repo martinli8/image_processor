@@ -68,6 +68,7 @@ def test_return_metadata():
         "image_size": [],
         "process_duration": [],
         "conversion_flag": [],
+        "processed_image_string": []
     }
     assert return_metadata(testUser) == assertDict
 
