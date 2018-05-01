@@ -5,8 +5,6 @@ from skimage import io as skiIO
 import io
 import PIL
 from PIL import Image, ImageStat
-import cv2
-import matplotlib.pyplot as plt
 
 
 def histogram_eq(img):
@@ -174,3 +172,4 @@ def grayScaleConversion(image_string):
 
 
 def calculate_histogram():
+    pass

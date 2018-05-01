@@ -57,12 +57,12 @@ def process_image(user_email, process_requested, bituser_picture):
     process_duration = (timePostProcessing - timeNow).total_seconds()
     write_duration_time(user_email, process_duration)
 
-    saveHistogramValues(user_email, original_histogram, processed_histogram)
-
     base64result = encodeImage(imageResult)
     fileName = save_image(user_email, base64result, "POST")
 
     save_filename_base64(user_email, fileName, base64result)
     write_conversionFlag(user_email, conversionFlag)
+    save_histogram_values(user_email, original_histogram, processed_histogram)
+
 
     return base64result
