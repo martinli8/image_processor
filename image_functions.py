@@ -108,7 +108,7 @@ def imageSize(image_string):
     imgdata = base64.b64decode(image_string)
     im = Image.open(io.BytesIO(imgdata))
     width, height = im.size
-    dimensions = [width, height]
+    dimensions = str(width) + "x" + str(height)
     return dimensions
 
 

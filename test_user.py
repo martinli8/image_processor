@@ -6,7 +6,7 @@ picture = test_image_processing.image_string
 process_requested = "histogram equalization"
 process_duration = 13.398
 timestamp = datetime.datetime(2018, 3, 22, 13, 39, 4, 847000)
-imageSize = [255, 255]
+imageSize = "100x100"
 
 
 def test_create_user():
@@ -31,7 +31,7 @@ def test_write_imageSize():
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     write_image_size(testUser, imageSize)
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
-    assert user.image_size == [[255, 255]]
+    assert user.image_size == ["100x100"]
 
 
 def test_write_conversionFlag():
@@ -55,7 +55,7 @@ def test_add_user_data():
     assert user.process_requested == ["histogram equalization",
                                       "reverse_video"]
     assert user.upload_time == [timestamp, timestamp_append]
-    assert user.image_size == [[100, 100]]
+    assert user.image_size == ["100x100"]
 
 
 def test_return_metadata():
