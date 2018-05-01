@@ -8,6 +8,9 @@ import Select from 'material-ui/Select';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import Button from 'material-ui/Button';
+import DownloadLink from "react-download-link";
+import Gallery from 'react-photo-gallery';
+
 
 const styles = theme => ({
   root: {
@@ -15,7 +18,8 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   formControl: {
-    // margin: theme.spacing.unit,
+    display: 'flex', 
+    justifyContent: 'center',
     minWidth: 120,
   },
   selectEmpty: {
@@ -32,6 +36,7 @@ class SimpleSelect extends React.Component {
     "processor": '',
     "nameTextField": '',
     "message": 'Nothing done yet!',
+    "photoset": []
   };
 
   onUpload = (files) => {
@@ -88,7 +93,14 @@ class SimpleSelect extends React.Component {
   }
 
   updateProcess = () => {
-    this.setState({"processedImageString": "data:iamge/jpeg;base64,"+this.state.imagelist[this.state.imagelist.length-1]})
+    this.setState({"processedImageString": "data:iamge/jpeg;base64,"+this.state.imagelist[this.state.imagelist.length-1]});
+    // var temp_arr = [];
+    // {this.state.imagelist.map(function(d, temp_arr){
+    //   var val = {src: "data:iamge/jpeg;base64,"+d, width: 4, height: 3}
+    //   temp_arr.push(val)
+    // })}
+    // this.setState({"photoset": temp_arr})
+    // console.log(this.state.photoset)
     // console.log(this.state.processedImageString)
     // console.log(this.state.currentImageString)
   }
@@ -100,27 +112,24 @@ class SimpleSelect extends React.Component {
     return (
       <div>
 				<h2 style={{display: 'flex', justifyContent: 'center'}}>Image Processor</h2>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <Button>
 				<UploadField onFiles={this.onUpload} style={{justifyContent: 'center'}}>
-					<div style={{
-							backgroundColor: 'blue',
-							width:'200px',
-							height:'50px',
-							textAlign: 'center',
-              display: 'flex',
-              justifyContent: 'center'}}>
 						Upload here
-					</div>
 				</UploadField>
+        </Button>
+        </div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
 				<img src={this.state.currentImageString}/>
         <img src={this.state.processedImageString}/>
         </div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
+        Please enter your email:
         <TextField
           value={this.state.nameTextField}
           onChange={this.onNameTextFieldChange}/>
-        Please enter your email
         </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
         <FormControl className={styles("").formControl}>
           <InputLabel htmlFor="image-processor">Image Processor</InputLabel>
           <Select
@@ -139,10 +148,29 @@ class SimpleSelect extends React.Component {
           </Select>
           <FormHelperText>Select a processing method</FormHelperText>
         </FormControl>
-        <Button variant="raised" onClick={this.postData}>
-					Upload
-				</Button>
+        <Button variant="raised" onClick={this.postData} style={{
+              backgroundColor: 'grey',
+              width:'100px',
+              height:'40px',
+              textAlign: 'center',
+              display: 'flex',
+              justifyContent: 'center'}}>
+          Upload
+        </Button>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
         {this.state.message}
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <Button>
+        <a href={this.state.processedImageString} download="filename.jpg" style={{textDecoration: 'none', color: 'black'}}>
+            Download Processed Image
+        </a>
+        </Button>
+        </div>
+        <div>
+        // <Gallery photos={this.state.photoset} />
+        </div>
         </div>
     );
   }
