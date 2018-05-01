@@ -27,6 +27,7 @@ class SimpleSelect extends React.Component {
   state = {
     currentImageString: '',
     processedImageString: '',
+    imagelist: [],
     // currently there is no code to obtain the base64 result of the processed image. This may require some tweaking in the back end, I was thinking about having the post request return it and we can extract it from there (in postData function). Once this is done, set <img src = {this.state.processedImageString}>
     "processor": '',
     "nameTextField": '',
@@ -38,7 +39,7 @@ class SimpleSelect extends React.Component {
     const file = files[0]
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader.result);
+      // console.log(reader.result);
       this.setState({currentImageString: reader.result});
     }
   }
@@ -59,7 +60,7 @@ class SimpleSelect extends React.Component {
 
   postData = () => {
     // var db = "http://vcm-3590.vm.duke.edu:5000/api/post_image/"
-    var db = "http://127.0.0.1:5000/api/post_image/"
+    var db = "http://127.0.0.1:5000/api/post_image"
     const data = {
       user_email: this.state.nameTextField,
       picture64bit: this.state.currentImageString.split(',')[1],
@@ -67,32 +68,59 @@ class SimpleSelect extends React.Component {
     }
 
     axios.post(db, data).then( (response) => {
-        console.log(response)
-        this.setState({"message": data});
-    })
+        // console.log(response)
+        this.setState({"message": response.data});
+    }).then(this.getData)
   }
+
+  getData = () => {
+    var db = "http://127.0.0.1:5000/api/"+this.state.nameTextField
+    const data = {
+      user_email: this.state.nameTextField,
+      picture64bit: this.state.currentImageString.split(',')[1],
+      process_requested: this.state.processor
+    }
+
+    axios.get(db).then( (response) => {
+        // console.log(response)
+        this.setState({"imagelist": response.data.processed_image_string});
+    }).then(this.updateProcess)
+  }
+
+  updateProcess = () => {
+    this.setState({"processedImageString": "data:iamge/jpeg;base64,"+this.state.imagelist[this.state.imagelist.length-1]})
+    // console.log(this.state.processedImageString)
+    // console.log(this.state.currentImageString)
+  }
+
 
   render() {
     const { classes } = this.props;
 
     return (
       <div>
-				<h2>Upload your image</h2>
-				<UploadField onFiles={this.onUpload}>
+				<h2 style={{display: 'flex', justifyContent: 'center'}}>Image Processor</h2>
+				<UploadField onFiles={this.onUpload} style={{justifyContent: 'center'}}>
 					<div style={{
 							backgroundColor: 'blue',
 							width:'200px',
 							height:'50px',
-							textAlign: 'center'}}>
+							textAlign: 'center',
+              display: 'flex',
+              justifyContent: 'center'}}>
 						Upload here
 					</div>
 				</UploadField>
-				<img src={this.state.currentImageString} alt = "Pre-processed image" />
-
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+				<img src={this.state.currentImageString}/>
+        <img src={this.state.processedImageString}/>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
         <TextField
           value={this.state.nameTextField}
           onChange={this.onNameTextFieldChange}/>
-
+        Please enter your email
+        </div>
         <FormControl className={styles("").formControl}>
           <InputLabel htmlFor="image-processor">Image Processor</InputLabel>
           <Select
