@@ -39,7 +39,7 @@ class SimpleSelect extends React.Component {
     processedImageString: '',
     imagelist: [],
     // currently there is no code to obtain the base64 result of the processed image. This may require some tweaking in the back end, I was thinking about having the post request return it and we can extract it from there (in postData function). Once this is done, set <img src = {this.state.processedImageString}>
-    "processor": '',
+    "processor": 'histogram_eq',
     "nameTextField": '',
     "message": 'Nothing done yet!',
     "photoset": [],
@@ -47,17 +47,17 @@ class SimpleSelect extends React.Component {
     "Data": []
   };
 
-  createData(user_email, process_req, image_size, process_dur, conv_flag) {
+  createData(user_email, process_req, image_size, process_dur, conv_flag, upload_time) {
     id += 1;
-    return {user_email, process_req, image_size, process_dur, conv_flag};
+    return {user_email, process_req, image_size, process_dur, conv_flag, upload_time};
   }
 
-  assembleData(user_email, process_req, image_size, process_dur, conv_flag)  {
+  assembleData(user_email, process_req, image_size, process_dur, conv_flag, upload_time)  {
     // console.log('assembleData')
     this.setState({Data: [], id: 0})
     for(var i = 0; i<process_dur.length; i++){
       var arr = this.state.Data
-      arr.push(this.createData(user_email, process_req[i], image_size[i], process_dur[i], conv_flag[i]))
+      arr.push(this.createData(user_email, process_req[i], image_size[i], process_dur[i], conv_flag[i], upload_time[i]))
     }
     // console.log(arr)
     this.setState({Data: arr})
@@ -114,18 +114,18 @@ class SimpleSelect extends React.Component {
     axios.get(db).then( (response) => {
         console.log(response)
         this.setState({"imagelist": response.data.processed_image_string});
-        this.assembleData(response.data.user_email, response.data.process_requested, response.data.image_size, response.data.process_duration, response.data.conversion_flag)
+        this.assembleData(response.data.user_email, response.data.process_requested, response.data.image_size, response.data.process_duration, response.data.conversion_flag, response.data.upload_time)
     }).then(this.updateProcess)
   }
 
   updateProcess = () => {
-    this.setState({"processedImageString": "data:iamge/jpeg;base64,"+this.state.imagelist[this.state.imagelist.length-1]});
+    this.setState({"processedImageString": "data:image/jpeg;base64,"+this.state.imagelist[this.state.imagelist.length-1]});
     this.setState({photoset: []})
     for(var i = 0; i<this.state.imagelist.length; i++){
       var arr = this.state.photoset
-      arr.push({src: "data:iamge/jpeg;base64,"+this.state.imagelist[i], width: 4, height:3})
+      arr.push({src: "data:image/jpeg;base64,"+this.state.imagelist[i], width: 4, height:3})
     }
-    console.log(arr)
+    // console.log(arr)
     this.setState({photoset: arr})
   }
 
@@ -161,9 +161,6 @@ class SimpleSelect extends React.Component {
             onChange={this.handleChange}
             input={<Input name="processor" id="image-processor" />}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             <MenuItem value={"histogram_eq"}>Histogram Equalization</MenuItem>
             <MenuItem value={"contrast_stretching"}>Contrast Stretching</MenuItem>
             <MenuItem value={"log_compression"}>Log Compression</MenuItem>
@@ -200,6 +197,7 @@ class SimpleSelect extends React.Component {
           <Table style = {styles.appTable}>
             <TableHead>
               <TableRow>
+                <TableCell>Upload Time</TableCell>
                 <TableCell>User Email</TableCell>
                 <TableCell>Process Request</TableCell>
                 <TableCell>Image Size</TableCell>
@@ -211,6 +209,7 @@ class SimpleSelect extends React.Component {
               {this.state.Data.map(n => {
                 return (
               <TableRow key={n.id}>
+                <TableCell>{n.upload_time}</TableCell>
                 <TableCell>{n.user_email}</TableCell>
                 <TableCell numeric>{n.process_req}</TableCell>
                 <TableCell numeric>{n.image_size}</TableCell>
