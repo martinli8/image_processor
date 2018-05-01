@@ -55,8 +55,7 @@ def test_add_user_data():
     assert user.process_requested == ["histogram equalization",
                                       "reverse_video"]
     assert user.upload_time == [timestamp, timestamp_append]
-    assert user.image_size == ["100x100"]
-
+    
 
 def test_return_metadata():
     create_user(testUser, picture, process_requested, timestamp)
