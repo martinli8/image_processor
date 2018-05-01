@@ -116,10 +116,10 @@ class SimpleSelect extends React.Component {
         <img src={this.state.processedImageString}/>
         </div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
+        Please enter your email:
         <TextField
           value={this.state.nameTextField}
           onChange={this.onNameTextFieldChange}/>
-        Please enter your email
         </div>
         <FormControl className={styles("").formControl}>
           <InputLabel htmlFor="image-processor">Image Processor</InputLabel>
@@ -142,6 +142,7 @@ class SimpleSelect extends React.Component {
         <Button variant="raised" onClick={this.postData}>
 					Upload
 				</Button>
+        
         {this.state.message}
         </div>
     );
