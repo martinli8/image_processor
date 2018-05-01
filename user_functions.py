@@ -115,6 +115,7 @@ def return_metadata(email):
         "image_size": user.image_size,
         "process_duration": user.process_duration,
         "conversion_flag": user.conversion_flag,
+        "processed_image_string": user.processed_image_string
     }
     return data
 
@@ -138,3 +139,7 @@ def save_image(user_email, image_string, status):
     fh.write(base64.b64decode(image_string))
     fh.close()
     return imageName
+
+
+def save_histogram_values(user_email, original_histogram, processed_histogram):
+    pass

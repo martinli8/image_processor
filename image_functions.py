@@ -1,10 +1,12 @@
 import numpy
 import base64
-from skimage import exposure, filters
+from skimage import exposure, filters, feature, color
 from skimage import io as skiIO
 import io
 import PIL
 from PIL import Image, ImageStat
+import cv2
+import matplotlib.pyplot as plt
 
 
 def histogram_eq(img):
@@ -65,7 +67,8 @@ def edge_detection(img):
     :return edges: Edges is a uint8 array that contians the edges
     found through sobel filtering
     """
-    edges = filters.sobel(img)
+    edges = feature.canny(color.rgb2grey(img))
+    edges = edges*255
     return edges.astype('uint8')
 
 
@@ -168,3 +171,6 @@ def grayScaleConversion(image_string):
     im.save('grayscale.png')
     img_read = skiIO.imread("grayscale.png")
     return img_read
+
+
+def calculate_histogram():
