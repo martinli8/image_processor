@@ -82,7 +82,7 @@ def test_save_image():
 
 
 def test_image_size():
-    assert imageSize(image_string) == [100, 100]
+    assert imageSize(image_string) == "100x100"
 
 
 def test_grayscaleDetection():
