@@ -139,3 +139,7 @@ def save_image(user_email, image_string, status):
     fh.write(base64.b64decode(image_string))
     fh.close()
     return imageName
+
+
+def save_histogram_values(user_email, original_histogram, processed_histogram):
+    pass

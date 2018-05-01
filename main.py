@@ -20,14 +20,18 @@ def process_image(user_email, process_requested, bituser_picture):
     decoded_image = decodeImage(bituser_picture)
     write_image_size(user_email, imageSize(bituser_picture))
     conversionFlag = False
+    original_histogram = ""
+    processed_histogram = ""
 
     if process_requested == "histogram_eq":
         if grayScaleDetection2(bituser_picture) is False:
             img = grayScaleConversion(bituser_picture)
             conversionFlag = True
             decoded_image = img
+            original_histogram = calculate_histogram(img)
         timeNow = datetime.datetime.now()
         imageResult = histogram_eq(decoded_image)
+        processed_histogram = calculate_histogram(imageResult)
 
     if process_requested == "contrast_stretching":
         timeNow = datetime.datetime.now()
@@ -52,6 +56,8 @@ def process_image(user_email, process_requested, bituser_picture):
     timePostProcessing = datetime.datetime.now()
     process_duration = (timePostProcessing - timeNow).total_seconds()
     write_duration_time(user_email, process_duration)
+
+    saveHistogramValues(user_email, original_histogram, processed_histogram)
 
     base64result = encodeImage(imageResult)
     fileName = save_image(user_email, base64result, "POST")
