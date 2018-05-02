@@ -62,16 +62,16 @@ creation of the web-app:
   + Store processed images (along with what processing was applied) and timestamps for a user
 
 ## Deliverables
-- [x] A `README` describing the final performance and state of your
+- [x] A [README.md](README.md) describing the final performance and state of your
   project.
 - [x] Recorded video demo of image processor in action:
   + demo.mp4
 - [x] All project code (in the form of a tagged GitHub repository named
-  `ImageProcessorS18`)
+  [ImageProcessorS18](https://github.com/martinli8/ImageProcessorS18/tree/master))
 - [x] Link to deployed web service
-  + http://imageprocessor.surge.sh/
+  + [Link](http://imageprocessor.surge.sh/)
 - [x] Final RFC link and PDF
-  + 
+  + [File]()
 
 ## Install App
 * Installation instructions
