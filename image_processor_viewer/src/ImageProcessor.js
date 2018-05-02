@@ -96,7 +96,7 @@ class SimpleSelect extends React.Component {
 
   postData = () => {
     // var db = "http://vcm-3590.vm.duke.edu:5000/api/post_image/"
-    var db = "http://127.0.0.1:5000/api/post_image"
+    var db = "http://vcm-3599.vm.duke.edu:5000/api/post_image"
     const data = {
       user_email: this.state.nameTextField,
       picture64bit: this.state.currentImageString.split(',')[1],
@@ -110,7 +110,7 @@ class SimpleSelect extends React.Component {
   }
 
   getData = () => {
-    var db = "http://127.0.0.1:5000/api/"+this.state.nameTextField
+    var db = "http://vcm-3599.vm.duke.edu:5000/api/"+this.state.nameTextField
     const data = {
       user_email: this.state.nameTextField,
       picture64bit: this.state.currentImageString.split(',')[1],
