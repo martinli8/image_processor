@@ -72,7 +72,7 @@ creation of the web-app:
 - [x] Link to deployed web service
   + [Link](http://imageprocessor.surge.sh/)
 - [x] Final RFC link and PDF
-  + [File]()
+  + [File](Engineering-RFC-TeamOne.pdf)
 
 ## Install App
 * Installation instructions
