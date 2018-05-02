@@ -11,4 +11,6 @@ class User(MongoModel):
     processed_image_name = fields.ListField(blank=True)
     processed_image_string = fields.ListField(blank=True)
     conversion_flag = fields.ListField(blank=True)
+    histograms_original = fields.ListField(blank=True)
+    histograms_processed = fields.ListField(blank=True)
     pass
