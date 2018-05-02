@@ -66,6 +66,7 @@ creation of the web-app:
   project.
 - [x] Recorded video demo of image processor in action:
   + demo.mp4
+  + [Link in Youtube](https://www.youtube.com/watch?v=RqZUF4yWXjU)
 - [x] All project code (in the form of a tagged GitHub repository named
   [ImageProcessorS18](https://github.com/martinli8/ImageProcessorS18/tree/master))
 - [x] Link to deployed web service
