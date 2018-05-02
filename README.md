@@ -73,6 +73,19 @@ creation of the web-app:
 * Final RFC link and PDF
   + 
 
+## Install App
+* Installation instructions
+  + Clone the repository
+  `git clone https://github.com/martinli8/image_processor.git`
+  + Move into repository folder (image_processor)
+  `cd image_processor`
+  + Move into React App folder (image_processor_viewer)
+  `cd image_processor_viewer`
+  + Install app dependencies 
+  `npm install`
+  + Run app
+  `npm start`
+
 ## Grading
 
 * RFC Document
