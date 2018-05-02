@@ -114,7 +114,9 @@ def return_metadata(email):
         "image_size": user.image_size,
         "process_duration": user.process_duration,
         "conversion_flag": user.conversion_flag,
-        "processed_image_string": user.processed_image_string
+        "processed_image_string": user.processed_image_string,
+        "histograms_original": user.histograms_original,
+        "histograms_processed": user.histograms_processed
     }
     return data
 
