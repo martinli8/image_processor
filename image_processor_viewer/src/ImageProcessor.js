@@ -44,7 +44,9 @@ class SimpleSelect extends React.Component {
     "message": 'Nothing done yet!',
     "photoset": [],
     "id": 0,
-    "Data": []
+    "Data": [],
+    "hist_og": '',
+    "hist_pr": ''
   };
 
   createData(user_email, process_req, image_size, process_dur, conv_flag, upload_time) {
@@ -113,7 +115,7 @@ class SimpleSelect extends React.Component {
 
     axios.get(db).then( (response) => {
         console.log(response)
-        this.setState({"imagelist": response.data.processed_image_string});
+        this.setState({"imagelist": response.data.processed_image_string, "hist_og": "data:image/jpeg;base64,"+response.state.histograms_original, "hist_pr": "data:image/jpeg;base64,"+response.state.histograms_processed});
         this.assembleData(response.data.user_email, response.data.process_requested, response.data.image_size, response.data.process_duration, response.data.conversion_flag, response.data.upload_time)
     }).then(this.updateProcess)
   }
@@ -146,6 +148,10 @@ class SimpleSelect extends React.Component {
         <div style={{display: 'flex', justifyContent: 'center'}}>
 				<img src={this.state.currentImageString}/>
         <img src={this.state.processedImageString}/>
+        </div>
+        <div>
+          <img src={this.state.hist_og}/>
+          <img src={this.state.hist_pr}/>
         </div>
         <div style={{display: 'flex', justifyContent: 'center'}}>
         Please enter your email:
