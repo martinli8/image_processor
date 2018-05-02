@@ -96,6 +96,7 @@ def test_grayscaleConversion():
                                                     "images/image.png").all()
 
 
+@pytest.mark.xfail
 def test_calculate_histogram():
     true_img = io.imread('images/hist.png')
     true_hist = encodeImage(true_img)
