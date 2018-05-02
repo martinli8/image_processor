@@ -5,6 +5,8 @@ from skimage import io as skiIO
 import io
 import PIL
 from PIL import Image, ImageStat
+import matplotlib
+matplotlib.use('Agg')
 
 
 def histogram_eq(img):
@@ -112,27 +114,7 @@ def imageSize(image_string):
     return dimensions
 
 
-def grayscaleDetection(img_path):
-    """
-    Function takes in a file path/image from disk and determines whether or not
-    the image is grayscale
-    :param img_path: Path of the image from disk
-    :return boolean: Whether or not the image is grayscale (True, False)
-    """
-
-    im = Image.open(img_path).convert('RGB')
-    w, h = im.size
-    for i in range(w):
-        for j in range(h):
-            r, g, b = im.getpixel((i, j))
-            if r != g != b:
-                return False
-    return True
-    # obtained from https://stackoverflow.com/questions/23660929/how-to-
-    # check-whether-a-jpeg-image-is-color-or-gray-scale-using-only-python-stdli
-
-
-def grayScaleDetection2(image_string):
+def grayScaleDetection(image_string):
     """
     Function takes in a base64 string and determines whether or not
     the image is grayscale
@@ -151,6 +133,8 @@ def grayScaleDetection2(image_string):
             if r != g != b:
                 return False
     return True
+    # obtained from https://stackoverflow.com/questions/23660929/how-to-
+    # check-whether-a-jpeg-image-is-color-or-gray-scale-using-only-python-stdli
 
 
 def grayScaleConversion(image_string):
@@ -169,3 +153,32 @@ def grayScaleConversion(image_string):
     im.save('grayscale.png')
     img_read = skiIO.imread("grayscale.png")
     return img_read
+
+
+def calculate_histogram(img, bins=256):
+    """
+    Function takes in an image and plots the histogram, saving a base64
+    representation of it
+
+    :param img: Image the histogram is being created for
+    :param bins: Number of bins histogram is being divided into
+    :return: base64 representation of histogram image
+    """
+
+    img = img.astype('uint8')
+    matplotlib.pyplot.hist(img.ravel(), bins=bins, histtype='step',
+                           color='black')
+    matplotlib.pyplot.ticklabel_format(axis='y', style='scientific',
+                                       scilimits=(0, 0))
+    matplotlib.pyplot.xlabel('Pixel intensity')
+    matplotlib.pyplot.ylabel('Frequency')
+
+    matplotlib.pyplot.savefig('hist.png')
+    matplotlib.pyplot.clf()
+    matplotlib.pyplot.cla()
+    matplotlib.pyplot.close()
+    # plt.show()
+
+    hist = encodeImage(skiIO.imread('hist.png'))
+
+    return hist

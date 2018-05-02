@@ -35,7 +35,7 @@ def create_user(email, picture, p_req, upload_time):
     :param image_size: Pixel x Pixel size of the image, stored in a tuple
     """
 
-    u = models.User(email, [], [], [], [], [], [], [], [])
+    u = models.User(email, [], [], [], [], [], [], [], [], [], [])
     u.picture.append(picture)
     u.process_requested.append(p_req)
     u.upload_time.append(upload_time)
@@ -138,3 +138,17 @@ def save_image(user_email, image_string, status):
     fh.write(base64.b64decode(image_string))
     fh.close()
     return imageName
+
+
+def save_histogram_values(user_email, original_histogram, processed_histogram):
+    """
+    Saves the histogram to the user
+    :param user_email: Primary key to identify the user
+    :param original_histogram: base-64 image of the original histogram
+    :param processed_histogram: base-64 image of the processed histogram
+    """
+
+    user = models.User.objects.raw({"_id": user_email}).first()
+    user.histograms_original.append(original_histogram)
+    user.histograms_processed.append(processed_histogram)
+    user.save()

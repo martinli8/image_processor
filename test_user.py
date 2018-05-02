@@ -78,3 +78,11 @@ def test_save_filename_base64():
     user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
     assert user.processed_image_string == ["zyxw"]
     assert user.processed_image_name == ["asdf.png"]
+
+
+def test_save_histogram_values():
+    create_user(testUser, picture, process_requested, timestamp)
+    save_histogram_values(testUser, "123456", "654321")
+    user = models.User.objects.raw({"_id": "testUserEmail@email.com"}).first()
+    assert user.histograms_original == ["123456"]
+    assert user.histograms_processed == ["654321"]
