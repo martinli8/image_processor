@@ -62,15 +62,15 @@ creation of the web-app:
   + Store processed images (along with what processing was applied) and timestamps for a user
 
 ## Deliverables
-# [checkbox:checked] A `README` describing the final performance and state of your
+- [x] A `README` describing the final performance and state of your
   project.
-# [checkbox:checked] Recorded video demo of image processor in action:
+- [x] Recorded video demo of image processor in action:
   + demo.mp4
-# [checkbox:checked] All project code (in the form of a tagged GitHub repository named
+- [x] All project code (in the form of a tagged GitHub repository named
   `ImageProcessorS18`)
-# [checkbox:checked] Link to deployed web service
+- [x] Link to deployed web service
   + http://imageprocessor.surge.sh/
-* Final RFC link and PDF
+- [x] Final RFC link and PDF
   + 
 
 ## Install App
