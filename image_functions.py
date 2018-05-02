@@ -1,5 +1,3 @@
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy
 import base64
 from skimage import exposure, filters, feature, color
@@ -7,7 +5,7 @@ from skimage import io as skiIO
 import io
 import PIL
 from PIL import Image, ImageStat
-
+import matplotlib
 matplotlib.use('Agg')
 
 
@@ -168,15 +166,17 @@ def calculate_histogram(img, bins=256):
     """
 
     img = img.astype('uint8')
-    plt.hist(img.ravel(), bins=bins, histtype='step', color='black')
-    plt.ticklabel_format(axis='y', style='scientific', scilimits=(0, 0))
-    plt.xlabel('Pixel intensity')
-    plt.ylabel('Frequency')
+    matplotlib.pyplot.hist(img.ravel(), bins=bins, histtype='step',
+                           color='black')
+    matplotlib.pyplot.ticklabel_format(axis='y', style='scientific',
+                                       scilimits=(0, 0))
+    matplotlib.pyplot.xlabel('Pixel intensity')
+    matplotlib.pyplot.ylabel('Frequency')
 
-    plt.savefig('hist.png')
-    plt.clf()
-    plt.cla()
-    plt.close()
+    matplotlib.pyplot.savefig('hist.png')
+    matplotlib.pyplot.clf()
+    matplotlib.pyplot.cla()
+    matplotlib.pyplot.close()
     # plt.show()
 
     hist = encodeImage(skiIO.imread('hist.png'))
