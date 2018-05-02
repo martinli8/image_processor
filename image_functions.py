@@ -8,6 +8,8 @@ import io
 import PIL
 from PIL import Image, ImageStat
 
+matplotlib.use('Agg')
+
 
 def histogram_eq(img):
     """
