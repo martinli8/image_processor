@@ -1,3 +1,6 @@
+docs/_build/
+docs/static/
+docs/_templates/
 grayscale.png
 temp.png
 temp2.png
