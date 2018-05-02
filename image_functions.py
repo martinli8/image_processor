@@ -12,10 +12,10 @@ from PIL import Image, ImageStat  # nopep8
 
 def histogram_eq(img):
     """
-    Function takes in an image and performs histogram equalization
+    Takes in an image and performs histogram equalization
 
     :param img: Is a uint8 array
-    :return img_eq: Is a uint8 array after histogram equalization
+    :returns: a uint8 array of equalized image
     """
     img_eq = exposure.equalize_hist(img.astype('uint8'))
     img_eq = 255*img_eq
@@ -24,10 +24,10 @@ def histogram_eq(img):
 
 def contrast_stretch(img):
     """
-    Function takes in an image and performs contrast contrast_stretching
+    Takes in an image and performs contrast contrast_stretching
 
     :param img: Is a uint8 array
-    :return img_rescale: Is a uint8 array after contrast stretching
+    :returns: a uint8 array of contrast stretched image
     """
     p2, p98 = numpy.percentile(img, (2, 98))
     img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
@@ -36,9 +36,10 @@ def contrast_stretch(img):
 
 def log_compression(img):
     """
-    Function will take in an image and perform log compression.
+    Takes in an image and perform log compression.
+
     :param img: Is a uint8 array image
-    :param image_log: Is a unit8 array image that was log compressed
+    :returns: a unit8 array of log compressed image
     """
     image_log = numpy.copy(img.astype('uint8'))
     for x in numpy.nditer(image_log, op_flags=['readwrite']):
@@ -50,8 +51,9 @@ def reverse_video(img):
     """
     Takes in an image and reverses the colors in the image by
     subtracting the pixel value from 225.
+
     :param img: A uint8 2D array of the image that will undergo the opperation
-    :return image_reverse: A uint8 2D array of image with pixels inverted.
+    :returns: a uint8 array of image with pixels inverted.
     """
     image_reverse = numpy.copy(img.astype('uint8'))
     for x in numpy.nditer(image_reverse, op_flags=['readwrite']):
@@ -61,12 +63,13 @@ def reverse_video(img):
 
 def edge_detection(img):
     """
-    Function detects the edges of a 2D array grayscale image using
+    Detects the edges of a 2D array grayscale image using
     the sobel filter and returns an image containing the edges.
+
     :param img: Image, 2D grayscale array, on which edge detection
     will be performed
-    :return edges: Edges is a uint8 array that contians the edges
-    found through sobel filtering
+    :returns: a uint8 array that contians the edges found through sobel
+    filtering
     """
     edges = feature.canny(color.rgb2grey(img))
     edges = edges*255
@@ -75,9 +78,10 @@ def edge_detection(img):
 
 def decodeImage(image_string):
     """
-    Function will take in a base64 string and reconstructed into an image
-    :param image_string: 64bit- string representation of picture
-    :return img_read: reconstructed image as PIL Image object
+    Takes in a base64 string and reconstructed into an image
+
+    :param image_string: Base64 string representation of picture
+    :returns: a reconstructed image as PIL Image object
     """
     fh = open("temp.png", "wb")
     fh.write(base64.b64decode(image_string))
@@ -89,10 +93,11 @@ def decodeImage(image_string):
 
 def encodeImage(data_array):
     """
-    Function will take in a data-type returned from the data processing method
-    to a base 64 image to be returned to the front-end
-    :param img: Unit-8 array
-    :return encoded_image_string: An encoded image String of base 64
+    Takes in a data-type returned from the data processing method to a base64
+    image to be returned to the front-end
+
+    :param data_array: array representation of image
+    :return encoded_image_string: An encoded base64 string
     """
     pil_img = Image.fromarray(data_array)
     buff = io.BytesIO()
@@ -103,9 +108,10 @@ def encodeImage(data_array):
 
 def imageSize(image_string):
     """
-    Function takes in base64 encoded and obtains the width and Height
-    :param image_string: 64bit - string represtnation of picture
-    :return dimensions: List of width and height
+    Takes in base64 encoded and obtains the width and height
+
+    :param image_string: base64 string representation of picture
+    :returns: a list of width and height
     """
 
     imgdata = base64.b64decode(image_string)
@@ -117,10 +123,11 @@ def imageSize(image_string):
 
 def grayScaleDetection(image_string):
     """
-    Function takes in a base64 string and determines whether or not
+    Takes in a base64 string and determines whether or not
     the image is grayscale
-    :param image_string: base 64 representation of the string
-    :return boolean: Whether or not the image is grayscale (True, False)
+
+    :param image_string: base64 representation of the string
+    :returns: a boolean of whether or not the image is grayscale
     """
 
     fh = open("temp2.png", "wb")
@@ -140,11 +147,12 @@ def grayScaleDetection(image_string):
 
 def grayScaleConversion(image_string):
     """
-    Function takes in a base 64 string, saves to a temp file, converts to
+    Takes in a base64 string, saves to a temp file, converts to
     grayscale, saves it again and returns reconstructed image as a PIL image
     object
-    :param image_string: 64bit- string representation of picture
-    :return img_read: reconstructed image as PIL Image object
+
+    :param image_string: base64 string representation of picture
+    :returns: a reconstructed image as PIL Image object
     """
 
     fh = open("tempGrayscale.png", "wb")
@@ -158,12 +166,12 @@ def grayScaleConversion(image_string):
 
 def calculate_histogram(img, bins=256):
     """
-    Function takes in an image and plots the histogram, saving a base64
-    representation of it
+    Takes in an image and plots(but does not display) the histogram,
+    saving a base64 representation of it
 
     :param img: Image the histogram is being created for
     :param bins: Number of bins histogram is being divided into
-    :return: base64 representation of histogram image
+    :returns: a base64 representation of histogram image
     """
 
     img = img.astype('uint8')

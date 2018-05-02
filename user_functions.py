@@ -8,6 +8,7 @@ import test_image_processing
 def save_filename_base64(user_email, fileName, base64result):
     """
     Saves the filename as well as the base64 string to the user class
+
     :param user_email: Primary key that user is saved under
     :param fileName: Name of the file that is saved
     :param base64result: The base64 string of the user
@@ -29,7 +30,7 @@ def create_user(email, picture, p_req, upload_time):
     :param email: str email of the new User
     :param picture: 64bit- string representation of picture
     :param p_req: Image processing technique requested on picture (Contrast
-    stretching, histogram equalization, Log compression, etc.)
+                  stretching, histogram equalization, Log compression, etc.)
     :param p_dur: Latency in processing not sure which one yet
     :param upload_time: Time it takes to upload the image
     :param image_size: Pixel x Pixel size of the image, stored in a tuple
@@ -45,6 +46,7 @@ def create_user(email, picture, p_req, upload_time):
 def write_duration_time(user_email, process_duration):
     """
     Updates the user duration and saves it
+
     :param user_email: The primary key used to open up the user
     :param process_duration: The process duration to save it to the User model
     """
@@ -58,6 +60,7 @@ def write_duration_time(user_email, process_duration):
 def write_image_size(user_email, image_size):
     """
     Determines the uploaded image size and saves it
+
     :param user_email: The primary key used to open up the user
     :param process_duration: List containing the image size
     """
@@ -71,6 +74,7 @@ def write_image_size(user_email, image_size):
 def write_conversionFlag(user_email, conversionFlag):
     """
     Saves the conversion flag(boolean) as a string to the user
+
     :param user_email: The primary key used to open up the user
     :param conversionFlag: Whether or not a grayscale conversion was done
     """
@@ -84,6 +88,7 @@ def write_conversionFlag(user_email, conversionFlag):
 def add_user_data(email, picture, p_req, upload_time):
     """
     Appends user data to the existing user with email primary key
+
     :param email: Primary key for the user
     :param picture: Base-64 representation of user uploaded picture
     :param p_req: Process requested by the user (Ex. Hist. eq)
@@ -101,8 +106,9 @@ def add_user_data(email, picture, p_req, upload_time):
 def return_metadata(email):
     """
     Returns user metadata regarding relevant uploads in a dict
+
     :param email: Primary key for the user requesting metadata
-    :return data: A dict of the user metadata
+    :returns: a dict of the user metadata
     """
 
     user = models.User.objects.raw({"_id": email}).first()
@@ -124,9 +130,10 @@ def return_metadata(email):
 def save_image(user_email, image_string, status):
     """
     Saves the image to disk
+
     :param user_email: Primary key that user is saved under
-    :param image_string: Base-64 image string to save file to
-    :return imageName: name of the image that was saved to disk
+    :param image_string: Base64 image string to save file to
+    :returns: name of the image that was saved to disk
     """
 
     user = models.User.objects.raw({"_id": user_email}).first()
@@ -145,9 +152,10 @@ def save_image(user_email, image_string, status):
 def save_histogram_values(user_email, original_histogram, processed_histogram):
     """
     Saves the histogram to the user
+
     :param user_email: Primary key to identify the user
-    :param original_histogram: base-64 image of the original histogram
-    :param processed_histogram: base-64 image of the processed histogram
+    :param original_histogram: Base64 image of the original histogram
+    :param processed_histogram: Base64 image of the processed histogram
     """
 
     user = models.User.objects.raw({"_id": user_email}).first()

@@ -11,10 +11,11 @@ def process_image(user_email, process_requested, bituser_picture):
     Takes in process_requested and base-64 picture, calls the appropriate
     image processing method, saves the time that it takes to process the image,
     and returns the result in a base64 image.
+
     :param user_email: Primary key that user is saved under
     :param process_requested: Image processing method requested on image
     :param bituser_picture: Base 64 representation of the user-uploaded image
-    :return base64result: Base 64 represnetation of the processed image
+    :returns: Base 64 representation of the processed image
     """
 
     decoded_image = decodeImage(bituser_picture)
