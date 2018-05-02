@@ -86,16 +86,20 @@ def test_image_size():
 
 
 def test_grayscaleDetection():
-    assert grayscaleDetection('images/Small.png') is False
-    assert grayscaleDetection('images/image.png') is True
-
-
-def test_grayscaleDetection2():
-    assert grayScaleDetection2(image_string) is False
+    assert grayScaleDetection(image_string) is False
     output = encodeImage(io.imread('images/image.png'))
-    assert grayScaleDetection2(output) is True
+    assert grayScaleDetection(output) is True
 
 
 def test_grayscaleConversion():
     assert grayScaleConversion(image_string).all() == skiIO.imread(
                                                     "images/image.png").all()
+
+
+@pytest.mark.xfail
+def test_calculate_histogram():
+    true_img = io.imread('images/hist.png')
+    true_hist = encodeImage(true_img)
+    test_image = io.imread('images/sampleGrayscale.png')
+    test_hist = calculate_histogram(test_image)
+    assert test_hist == true_hist
